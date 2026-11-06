@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://crtl8v0u54lhf"]
+
+[ext_resource type="PackedScene" uid="uid://bc85v8f30vvjl" path="res://Models/head1.glb" id="1_uw1ma"]
+[ext_resource type="Material" uid="uid://d2hh61q0qjlpt" path="res://Materials/verde.tres" id="2_1qtq6"]
+
+[node name="head1" unique_id=1617358969 instance=ExtResource("1_uw1ma")]
+
+[node name="Circle_005" parent="." index="0" unique_id=816274998]
+material_overlay = ExtResource("2_1qtq6")

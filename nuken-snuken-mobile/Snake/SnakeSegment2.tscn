@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dyfafnv7j5pre"]
+
+[ext_resource type="Material" uid="uid://bs4l7ew2kyovn" path="res://Materials/material-snakebody.tres" id="1_x8mu6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5j50w"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7tsqo"]
+
+[node name="SnakeSegment" type="CharacterBody3D" unique_id=1890076365]
+collision_layer = 16
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=660149309]
+mesh = SubResource("BoxMesh_5j50w")
+surface_material_override/0 = ExtResource("1_x8mu6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=662439760]
+shape = SubResource("BoxShape3D_7tsqo")

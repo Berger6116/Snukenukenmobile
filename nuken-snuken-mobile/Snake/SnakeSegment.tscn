@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bwilxuw5b8v27"]
+
+[ext_resource type="Material" uid="uid://bs4l7ew2kyovn" path="res://Materials/material-snakebody.tres" id="1_5jx6v"]
+[ext_resource type="ArrayMesh" uid="uid://dhq0bdcp7mom8" path="res://Models/snake1.obj" id="1_6gko2"]
+
+[node name="SnakeSegment" type="Node3D" unique_id=1736616037]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=660149309]
+transform = Transform3D(0.4387682, 0, 0, 0, 0.4387682, 0, 0, 0, 0.4387682, 0, 0, 0)
+mesh = ExtResource("1_6gko2")
+surface_material_override/0 = ExtResource("1_5jx6v")
