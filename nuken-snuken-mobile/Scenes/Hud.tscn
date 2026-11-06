@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bf8rwyv2dsxls"]
+
+[ext_resource type="Script" path="res://scenes/Hud.gd" id="1_wfueu"]
+
+[node name="Hud" type="Control" unique_id=1794739199]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wfueu")
+
+[node name="BotonAnuncio" type="Button" parent="." unique_id=1580267605]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "¡Ver anuncio para duplicar Diamantes!
+"
+
+[connection signal="pressed" from="BotonAnuncio" to="." method="_on_boton_anuncio_pressed"]
