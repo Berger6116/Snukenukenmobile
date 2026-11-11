@@ -1,0 +1,274 @@
+[gd_scene format=3 uid="uid://c6persscreen01"]
+
+[ext_resource type="Script" path="res://Scenes/Screens/personalizacion_screen.gd" id="1_pers"]
+[ext_resource type="FontFile" uid="uid://be7icuirs7tmo" path="res://Recursos/Metal Lord.otf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.12, 0.05, 0.24, 0.96)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_green_card"]
+bg_color = Color(0.0, 0.42, 0.08, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 0.85, 0.3, 1.0)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+content_margin_left = 16.0
+content_margin_top = 14.0
+content_margin_right = 16.0
+content_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_red_btn"]
+bg_color = Color(0.85, 0.08, 0.05, 1.0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1.0, 0.65, 0.55, 1.0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 20.0
+content_margin_top = 12.0
+content_margin_right = 20.0
+content_margin_bottom = 12.0
+
+[node name="PersonalizacionScreen" type="Control" unique_id=19001001]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pers")
+
+[node name="BgPanel" type="Panel" parent="." unique_id=19001002]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=19001003]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 24
+
+[node name="MainVBox" type="VBoxContainer" parent="Margin" unique_id=19001004]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="HeaderHBox" type="HBoxContainer" parent="Margin/MainVBox" unique_id=19001005]
+layout_mode = 2
+
+[node name="TituloLabel" type="Label" parent="Margin/MainVBox/HeaderHBox" unique_id=19001006]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 24
+text = "PERSONALIZACIÓN DE PERSONAJE"
+
+[node name="DiamantesLabel" type="Label" parent="Margin/MainVBox/HeaderHBox" unique_id=19001007]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1.0, 0.5, 1.0)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 26
+text = "DIAMANTES: 30"
+
+[node name="GridCards" type="GridContainer" parent="Margin/MainVBox" unique_id=19001008]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 14
+columns = 2
+
+[node name="CardSkin" type="PanelContainer" parent="Margin/MainVBox/GridCards" unique_id=19001009]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_green_card")
+
+[node name="VBox" type="VBoxContainer" parent="Margin/MainVBox/GridCards/CardSkin" unique_id=19001010]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Margin/MainVBox/GridCards/CardSkin/VBox" unique_id=19001011]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+text = "SKIN X DIAMANTES"
+horizontal_alignment = 1
+
+[node name="ColorPreview" type="ColorRect" parent="Margin/MainVBox/GridCards/CardSkin/VBox" unique_id=19001012]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+color = Color(0.15, 0.45, 0.95, 1)
+
+[node name="InfoLabel" type="Label" parent="Margin/MainVBox/GridCards/CardSkin/VBox" unique_id=19001013]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Azul Clásico"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NavHBox" type="HBoxContainer" parent="Margin/MainVBox/GridCards/CardSkin/VBox" unique_id=19001014]
+layout_mode = 2
+alignment = 1
+
+[node name="PrevSkinBtn" type="Button" parent="Margin/MainVBox/GridCards/CardSkin/VBox/NavHBox" unique_id=19001015]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "< Anterior"
+
+[node name="NextSkinBtn" type="Button" parent="Margin/MainVBox/GridCards/CardSkin/VBox/NavHBox" unique_id=19001016]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Siguiente >"
+
+[node name="ComprarSkinBtn" type="Button" parent="Margin/MainVBox/GridCards/CardSkin/VBox" unique_id=19001017]
+layout_mode = 2
+text = "EQUIPAR SKIN"
+
+[node name="CardVida" type="PanelContainer" parent="Margin/MainVBox/GridCards" unique_id=19001018]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_green_card")
+
+[node name="VBox" type="VBoxContainer" parent="Margin/MainVBox/GridCards/CardVida" unique_id=19001019]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Margin/MainVBox/GridCards/CardVida/VBox" unique_id=19001020]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+text = "VIDA MÁXIMA X DIAMANTES"
+horizontal_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="Margin/MainVBox/GridCards/CardVida/VBox" unique_id=19001021]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Vida Máxima Actual: 100 HP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ComprarVidaBtn" type="Button" parent="Margin/MainVBox/GridCards/CardVida/VBox" unique_id=19001022]
+layout_mode = 2
+text = "MEJORAR VIDA (15 DIAMANTES)"
+
+[node name="CardPowerUp" type="PanelContainer" parent="Margin/MainVBox/GridCards" unique_id=19001023]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_green_card")
+
+[node name="VBox" type="VBoxContainer" parent="Margin/MainVBox/GridCards/CardPowerUp" unique_id=19001024]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Margin/MainVBox/GridCards/CardPowerUp/VBox" unique_id=19001025]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+text = "POWERUPS X DIAMANTES"
+horizontal_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="Margin/MainVBox/GridCards/CardPowerUp/VBox" unique_id=19001026]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Turbo Inicial"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NavHBox" type="HBoxContainer" parent="Margin/MainVBox/GridCards/CardPowerUp/VBox" unique_id=19001027]
+layout_mode = 2
+alignment = 1
+
+[node name="PrevPwBtn" type="Button" parent="Margin/MainVBox/GridCards/CardPowerUp/VBox/NavHBox" unique_id=19001028]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "< Anterior"
+
+[node name="NextPwBtn" type="Button" parent="Margin/MainVBox/GridCards/CardPowerUp/VBox/NavHBox" unique_id=19001029]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Siguiente >"
+
+[node name="ComprarPwBtn" type="Button" parent="Margin/MainVBox/GridCards/CardPowerUp/VBox" unique_id=19001030]
+layout_mode = 2
+text = "COMPRAR Y EQUIPAR"
+
+[node name="CardDiamantes" type="PanelContainer" parent="Margin/MainVBox/GridCards" unique_id=19001031]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_green_card")
+
+[node name="VBox" type="VBoxContainer" parent="Margin/MainVBox/GridCards/CardDiamantes" unique_id=19001032]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Margin/MainVBox/GridCards/CardDiamantes/VBox" unique_id=19001033]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+text = "COMPRAR DIAMANTES"
+horizontal_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="Margin/MainVBox/GridCards/CardDiamantes/VBox" unique_id=19001034]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Sumá diamantes extra para desbloquear Skins, Vida y PowerUps."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="AdDiamantesBtn" type="Button" parent="Margin/MainVBox/GridCards/CardDiamantes/VBox" unique_id=19001035]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_red_btn")
+text = "VER ANUNCIO (+20 DIAMANTES)"
+
+[node name="PackDiamantesBtn" type="Button" parent="Margin/MainVBox/GridCards/CardDiamantes/VBox" unique_id=19001036]
+layout_mode = 2
+text = "PACK TIENDA (+50 DIAMANTES)"
+
+[node name="FeedbackLabel" type="Label" parent="Margin/MainVBox" unique_id=19001037]
+layout_mode = 2
+theme_override_colors/font_color = Color(1.0, 0.9, 0.35, 1.0)
+text = "Seleccioná tus mejoras y presioná Continuar para iniciar el Nivel."
+horizontal_alignment = 1
+
+[node name="FooterHBox" type="HBoxContainer" parent="Margin/MainVBox" unique_id=19001038]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VolverBtn" type="Button" parent="Margin/MainVBox/FooterHBox" unique_id=19001039]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "VOLVER A INICIO"
+
+[node name="ContinuarAdBtn" type="Button" parent="Margin/MainVBox/FooterHBox" unique_id=19001040]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_red_btn")
+text = "VER ANUNCIO PARA CONTINUAR  ->  PARTIDA NIVEL 1"

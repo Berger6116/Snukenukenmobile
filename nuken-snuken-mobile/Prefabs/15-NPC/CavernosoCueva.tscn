@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ucwb4qwfgbxh"]
+
+[ext_resource type="PackedScene" uid="uid://qg2j4kxk7tbe" path="res://Prefabs/15-NPC/CavernosoComp.tscn" id="1_82fle"]
+[ext_resource type="Script" uid="uid://cb350kqu6vi6n" path="res://Prefabs/15-NPC/cavernoso_cueva.gd" id="1_mvo6k"]
+[ext_resource type="PackedScene" uid="uid://c3brkew77bp7y" path="res://Prefabs/04-Terrains/EnemySpots/Cueva/Cueva.tscn" id="2_mvo6k"]
+
+[node name="CavernosoCueva" type="Node3D" unique_id=1644780922]
+script = ExtResource("1_mvo6k")
+intervalo = 5.0
+
+[node name="CavernosoComp" parent="." unique_id=383930312 instance=ExtResource("1_82fle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Cueva" parent="." unique_id=290491093 instance=ExtResource("2_mvo6k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)

@@ -1,0 +1,437 @@
+[gd_scene format=3 uid="uid://cvhp40ooppdpn"]
+
+[ext_resource type="Script" uid="uid://dsc172uixey4q" path="res://Prefabs/13-Worlds/world_mp.gd" id="1_tl726"]
+[ext_resource type="PackedScene" uid="uid://c2ffqq1vhcmkv" path="res://Prefabs/10-UI/HUD.tscn" id="2_pdhcf"]
+[ext_resource type="Script" uid="uid://bw03m4dx4e3fs" path="res://Prefabs/14-Factory/RepartidorItems.gd" id="3_sr2o4"]
+[ext_resource type="Script" uid="uid://dmroge275i7pk" path="res://Prefabs/14-Factory/14- Composite_Factory/fabrica_conc.gd" id="4_2je1h"]
+[ext_resource type="Resource" uid="uid://cc2tfr0c12shn" path="res://Recursos/ItemData_HuevosAzules.tres" id="5_emkyq"]
+[ext_resource type="Resource" uid="uid://c45orpsf6r5k4" path="res://Recursos/ItemData_HuevosVerdes.tres" id="6_ti5ad"]
+[ext_resource type="Resource" uid="uid://brxle43faxxal" path="res://Recursos/ItemData_HuevosMarrones.tres" id="7_gk5rd"]
+[ext_resource type="PackedScene" uid="uid://cl4sdu12nr83k" path="res://Prefabs/14-Factory/Items/Huevo_Azul.tscn" id="8_odmcc"]
+[ext_resource type="PackedScene" uid="uid://gq5rd5xjcdt5" path="res://Prefabs/14-Factory/Items/Huevo_Verde.tscn" id="9_40nbd"]
+[ext_resource type="PackedScene" uid="uid://jmi8le0xflb2" path="res://Prefabs/14-Factory/Items/Huevo_Marron.tscn" id="10_7taom"]
+[ext_resource type="Script" uid="uid://brg8voa8x6ldh" path="res://Scripts/camera_follow.gd" id="11_5wl18"]
+[ext_resource type="PackedScene" uid="uid://d26l4j8alk52q" path="res://Prefabs/04-Terrains/EnemySpots/Trampas/Trampa_1.tscn" id="19_mh4jy"]
+[ext_resource type="PackedScene" uid="uid://mgm5m5kwtypg" path="res://Prefabs/13-Worlds/Maps/Map2.tscn" id="20_tl726"]
+[ext_resource type="PackedScene" uid="uid://ucwb4qwfgbxh" path="res://Prefabs/15-NPC/CavernosoCueva.tscn" id="21_pdhcf"]
+
+[sub_resource type="Animation" id="Animation_tl726"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 16, 38)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.5235988, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pdhcf"]
+resource_name = "new_animation"
+length = 10.033334
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.3666666, 4.9, 7.766667, 10.033334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 16, 38), Vector3(37, 16, -7), Vector3(9, 16, -36), Vector3(-39, 16, 8), Vector3(0, 16, 38)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.3666666, 4.9, 7.766667, 10.033334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.5235988, -6.2831855, 0), Vector3(-0.5235988, -4.633849, 0), Vector3(-0.5235988, -3.4644785, 0), Vector3(-0.5235988, -1.43117, 0), Vector3(-0.5235988, 0.061086524, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sr2o4"]
+_data = {
+&"RESET": SubResource("Animation_tl726"),
+&"new_animation": SubResource("Animation_pdhcf")
+}
+
+[node name="WorldMp" type="Node3D" unique_id=51318643]
+script = ExtResource("1_tl726")
+
+[node name="Hud" parent="." unique_id=873896737 instance=ExtResource("2_pdhcf")]
+
+[node name="Players" type="Node3D" parent="." unique_id=1756869960]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1329840431]
+
+[node name="LobbyPanel" type="PanelContainer" parent="UI" unique_id=295052276]
+offset_left = 132.0
+offset_top = 116.0
+offset_right = 1010.0
+offset_bottom = 493.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/LobbyPanel" unique_id=1703149142]
+layout_mode = 2
+
+[node name="HostButton" type="Button" parent="UI/LobbyPanel/VBoxContainer" unique_id=1637498704]
+layout_mode = 2
+text = "Host
+"
+
+[node name="ClientButton" type="Button" parent="UI/LobbyPanel/VBoxContainer" unique_id=2068896851]
+layout_mode = 2
+text = "Join"
+
+[node name="IPInput" type="LineEdit" parent="UI/LobbyPanel/VBoxContainer" unique_id=1394855011]
+layout_mode = 2
+placeholder_text = "ID del jugador Host"
+
+[node name="RespawnPanel" type="PanelContainer" parent="UI" unique_id=1894512301]
+offset_left = 123.0
+offset_top = 132.0
+offset_right = 1001.0
+offset_bottom = 504.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/RespawnPanel" unique_id=1894512302]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="TituloLabel" type="Label" parent="UI/RespawnPanel/VBoxContainer" unique_id=1894512303]
+layout_mode = 2
+text = "¡Has muerto!"
+horizontal_alignment = 1
+
+[node name="ContinuarButton" type="Button" parent="UI/RespawnPanel/VBoxContainer" unique_id=1894512304]
+layout_mode = 2
+text = "Continuar"
+
+[node name="SalirButton" type="Button" parent="UI/RespawnPanel/VBoxContainer" unique_id=1894512305]
+layout_mode = 2
+text = "Salir al Menú"
+
+[node name="SpawnPos" type="Node3D" parent="." unique_id=439991998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6943264, 1.2812519, 36.43371)
+
+[node name="FabricasItems" type="Node3D" parent="." unique_id=2132442442 node_paths=PackedStringArray("Fabrica1", "Fabrica1_Spawns", "Fabrica2", "Fabrica2_Spawns", "Fabrica3", "Fabrica3_Spawns")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54, -18.374792)
+script = ExtResource("3_sr2o4")
+Fabrica1 = NodePath("Fabrica1")
+Fabrica1_Spawns = [NodePath("../SpawnPosHuevos/Azules/Azul-1"), NodePath("../SpawnPosHuevos/Azules/Azul-2"), NodePath("../SpawnPosHuevos/Azules/Azul-3"), NodePath("../SpawnPosHuevos/Azules/Azul-4")]
+Fabrica2 = NodePath("Fabrica2")
+Fabrica2_Spawns = [NodePath("../SpawnPosHuevos/Verdes/Verde-1"), NodePath("../SpawnPosHuevos/Verdes/Verde-2"), NodePath("../SpawnPosHuevos/Verdes/Verde-3"), NodePath("../SpawnPosHuevos/Verdes/Verde-4")]
+Fabrica3 = NodePath("Fabrica3")
+Fabrica3_Spawns = [NodePath("../SpawnPosHuevos/Marrones/Marron-1"), NodePath("../SpawnPosHuevos/Marrones/Marron-2"), NodePath("../SpawnPosHuevos/Marrones/Marron-3"), NodePath("../SpawnPosHuevos/Marrones/Marron-4")]
+
+[node name="Fabrica1" type="Node3D" parent="FabricasItems" unique_id=1707444702 node_paths=PackedStringArray("spawn_path")]
+script = ExtResource("4_2je1h")
+item_data = ExtResource("5_emkyq")
+spawn_path = NodePath("../../ItemsSpawnPath")
+metadata/_custom_type_script = "uid://dmroge275i7pk"
+
+[node name="Fabrica2" type="Node3D" parent="FabricasItems" unique_id=1111875021 node_paths=PackedStringArray("spawn_path")]
+script = ExtResource("4_2je1h")
+item_data = ExtResource("6_ti5ad")
+spawn_path = NodePath("../../ItemsSpawnPath")
+metadata/_custom_type_script = "uid://dmroge275i7pk"
+
+[node name="Fabrica3" type="Node3D" parent="FabricasItems" unique_id=1350947290 node_paths=PackedStringArray("spawn_path")]
+script = ExtResource("4_2je1h")
+item_data = ExtResource("7_gk5rd")
+spawn_path = NodePath("../../ItemsSpawnPath")
+metadata/_custom_type_script = "uid://dmroge275i7pk"
+
+[node name="ItemsSpawnPath" type="Node3D" parent="." unique_id=2145994628]
+
+[node name="SpawnPosHuevos" type="Node3D" parent="." unique_id=1802966748]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="Azules" type="Node3D" parent="SpawnPosHuevos" unique_id=407306575]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.050539017, 0)
+
+[node name="Azul-1" type="Node3D" parent="SpawnPosHuevos/Azules" unique_id=1454755198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 10.787315)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Azul" parent="SpawnPosHuevos/Azules/Azul-1" unique_id=253426109 instance=ExtResource("8_odmcc")]
+
+[node name="Azul-2" type="Node3D" parent="SpawnPosHuevos/Azules" unique_id=2133138346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.915298, 0, 12.680752)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Azul" parent="SpawnPosHuevos/Azules/Azul-2" unique_id=2036630728 instance=ExtResource("8_odmcc")]
+
+[node name="Azul-3" type="Node3D" parent="SpawnPosHuevos/Azules" unique_id=1165212929]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4333496, 0, 3.0986767)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Azul" parent="SpawnPosHuevos/Azules/Azul-3" unique_id=1555217101 instance=ExtResource("8_odmcc")]
+
+[node name="Azul-4" type="Node3D" parent="SpawnPosHuevos/Azules" unique_id=1723980754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.492403, 0, 12.513411)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Azul" parent="SpawnPosHuevos/Azules/Azul-4" unique_id=404871921 instance=ExtResource("8_odmcc")]
+
+[node name="Verdes" type="Node3D" parent="SpawnPosHuevos" unique_id=1331174129]
+
+[node name="Verde-1" type="Node3D" parent="SpawnPosHuevos/Verdes" unique_id=1780018824]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2567635, 0, -3.0118217)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Verde" parent="SpawnPosHuevos/Verdes/Verde-1" unique_id=1070664352 instance=ExtResource("9_40nbd")]
+
+[node name="Verde-2" type="Node3D" parent="SpawnPosHuevos/Verdes" unique_id=717988848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.47437, 0, -10.086472)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Verde" parent="SpawnPosHuevos/Verdes/Verde-2" unique_id=1272204093 instance=ExtResource("9_40nbd")]
+
+[node name="Verde-3" type="Node3D" parent="SpawnPosHuevos/Verdes" unique_id=788937642]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.348644, 0, 15.126175)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Verde" parent="SpawnPosHuevos/Verdes/Verde-3" unique_id=1946778570 instance=ExtResource("9_40nbd")]
+
+[node name="Verde-4" type="Node3D" parent="SpawnPosHuevos/Verdes" unique_id=686100874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.917841, 0, 19)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Verde" parent="SpawnPosHuevos/Verdes/Verde-4" unique_id=450485996 instance=ExtResource("9_40nbd")]
+
+[node name="Marrones" type="Node3D" parent="SpawnPosHuevos" unique_id=1808989285]
+
+[node name="Marron-1" type="Node3D" parent="SpawnPosHuevos/Marrones" unique_id=1871343401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9939, 0, -11.141865)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Marron" parent="SpawnPosHuevos/Marrones/Marron-1" unique_id=313731952 instance=ExtResource("10_7taom")]
+
+[node name="Marron-2" type="Node3D" parent="SpawnPosHuevos/Marrones" unique_id=663166569]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.628713, 0, -17)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Marron" parent="SpawnPosHuevos/Marrones/Marron-2" unique_id=1477671331 instance=ExtResource("10_7taom")]
+
+[node name="Marron-3" type="Node3D" parent="SpawnPosHuevos/Marrones" unique_id=799086622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.79228, 0, 4.721259)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Marron" parent="SpawnPosHuevos/Marrones/Marron-3" unique_id=269944943 instance=ExtResource("10_7taom")]
+
+[node name="Marron-4" type="Node3D" parent="SpawnPosHuevos/Marrones" unique_id=1864428186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.136393, 0, -5.1748276)
+metadata/_edit_group_ = true
+
+[node name="Huevo_Marron" parent="SpawnPosHuevos/Marrones/Marron-4" unique_id=1645835271 instance=ExtResource("10_7taom")]
+
+[node name="Seguimiento" type="Node3D" parent="." unique_id=661990113]
+transform = Transform3D(1, 0, 0, 0, 0.7993463, -0.6008706, 0, 0.6008706, 0.7993463, 0, -0.28861046, -15.880039)
+script = ExtResource("11_5wl18")
+
+[node name="Sapos" type="Node3D" parent="." unique_id=468850615]
+
+[node name="chicos" type="Node3D" parent="Sapos" unique_id=1817206016]
+
+[node name="CavernosoCueva2" parent="Sapos/chicos" unique_id=1183458918 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -1, 20)
+intervalo = 2.2
+tipo_de_sapo = "Giratorio"
+
+[node name="CavernosoCueva" parent="Sapos/chicos" unique_id=1644780922 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -1, -19)
+intervalo = 1.5
+tipo_de_sapo = "Giratorio"
+
+[node name="CavernosoCueva3" parent="Sapos/chicos" unique_id=1998081705 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, -1, 15)
+intervalo = 1.5
+
+[node name="CavernosoCueva4" parent="Sapos/chicos" unique_id=731207622 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, -1, -23)
+intervalo = 2.4
+tipo_de_sapo = "Giratorio"
+
+[node name="CavernosoCueva6" parent="Sapos/chicos" unique_id=406735236 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -1)
+intervalo = 2.5
+
+[node name="CavernosoCueva7" parent="Sapos/chicos" unique_id=894980560 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -1, -1)
+intervalo = 1.8
+
+[node name="CavernosoCueva8" parent="Sapos/chicos" unique_id=1909058315 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, -1, 14)
+intervalo = 2.1
+
+[node name="CavernosoCueva9" parent="Sapos/chicos" unique_id=1978544194 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -1, 28)
+intervalo = 2.1
+tipo_de_sapo = "Giratorio"
+
+[node name="Grandes" type="Node3D" parent="Sapos" unique_id=1096822488]
+
+[node name="CavernosoCueva5" parent="Sapos/Grandes" unique_id=173980036 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 0, -3, 14)
+intervalo = 4.5
+
+[node name="CavernosoCueva10" parent="Sapos/Grandes" unique_id=1315489002 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 0, -3, -18)
+intervalo = 5.1
+
+[node name="Medianos" type="Node3D" parent="Sapos" unique_id=1982579858]
+
+[node name="CavernosoCueva11" parent="Sapos/Medianos" unique_id=1229148638 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 27, -1, -0.5)
+intervalo = 3.2
+
+[node name="CavernosoCueva12" parent="Sapos/Medianos" unique_id=426134550 instance=ExtResource("21_pdhcf")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -27, -1, -2.4)
+intervalo = 2.8
+
+[node name="Trampas" type="Node3D" parent="." unique_id=145056067]
+
+[node name="Trampa1" parent="Trampas" unique_id=109306189 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, -16)
+danio = 5
+
+[node name="Trampa4" parent="Trampas" unique_id=680750574 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 0, 11)
+danio = 5
+
+[node name="Trampa5" parent="Trampas" unique_id=375996820 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 29)
+danio = 5
+
+[node name="Trampa6" parent="Trampas" unique_id=1501055061 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 26)
+danio = 5
+
+[node name="Trampa7" parent="Trampas" unique_id=922242683 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 28)
+danio = 5
+
+[node name="Trampa8" parent="Trampas" unique_id=731942439 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 21)
+danio = 5
+
+[node name="Trampa2" parent="Trampas" unique_id=477261359 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -30)
+danio = 5
+
+[node name="Trampa19" parent="Trampas" unique_id=58281319 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -10)
+danio = 5
+
+[node name="Trampa25" parent="Trampas" unique_id=1062840504 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -10)
+danio = 5
+
+[node name="Trampa28" parent="Trampas" unique_id=909191960 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, -20)
+danio = 5
+
+[node name="Trampa18" parent="Trampas" unique_id=219050905 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 10)
+danio = 5
+
+[node name="Trampa17" parent="Trampas" unique_id=315790580 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+danio = 5
+
+[node name="Trampa22" parent="Trampas" unique_id=1435135524 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+danio = 5
+
+[node name="Trampa23" parent="Trampas" unique_id=1405454898 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+danio = 5
+
+[node name="Trampa24" parent="Trampas" unique_id=1234322928 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+danio = 5
+
+[node name="Trampa21" parent="Trampas" unique_id=434128847 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -23)
+danio = 5
+
+[node name="Trampa20" parent="Trampas" unique_id=23783821 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 10)
+danio = 5
+
+[node name="Trampa3" parent="Trampas" unique_id=1514613510 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -30)
+danio = 5
+
+[node name="Trampa26" parent="Trampas" unique_id=1301782935 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 19)
+danio = 5
+
+[node name="Trampa9" parent="Trampas" unique_id=1235203699 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, -27)
+danio = 5
+
+[node name="Trampa10" parent="Trampas" unique_id=605349236 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -30)
+danio = 5
+
+[node name="Trampa11" parent="Trampas" unique_id=1311130719 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -28)
+danio = 5
+
+[node name="Trampa12" parent="Trampas" unique_id=2049120209 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -30)
+danio = 5
+
+[node name="Trampa27" parent="Trampas" unique_id=1014241448 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, 28)
+danio = 5
+
+[node name="Trampa13" parent="Trampas" unique_id=1040136297 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 40.50711, 0, -6.061344)
+danio = 5
+
+[node name="Trampa15" parent="Trampas" unique_id=1231848228 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -4.4928913, 0, 29.892893)
+danio = 5
+
+[node name="Trampa14" parent="Trampas" unique_id=216211227 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -17.007107, 0, -28.292892)
+danio = 5
+
+[node name="Trampa16" parent="Trampas" unique_id=616088999 instance=ExtResource("19_mh4jy")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 30.992893, 0, 27.707108)
+danio = 5
+
+[node name="Map" parent="." unique_id=588045091 instance=ExtResource("20_tl726")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10420227, -0.98995286, -0.008384705)
+metadata/_edit_lock_ = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1967678520]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 16, 38)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D" unique_id=448517959]
+libraries/ = SubResource("AnimationLibrary_sr2o4")
+autoplay = &"new_animation"

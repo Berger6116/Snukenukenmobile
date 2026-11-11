@@ -1,67 +1,89 @@
 extends Node
 
-@export var vida_inicial:int = 100
-@export var puntaje_inicial:int = 0
+@export var vida_inicial: int = 100
+@export var puntaje_inicial: int = 0
 
 var jugadores: Dictionary = {}
 var jugadores_invulnerables: Array = []
 
-#señal solo para actualizar el HUD
+var huevos_recolectados_nivel: int = 0
+var huevos_objetivo_nivel: int = 5
+var tiempo_restante_nivel: float = 60.0
+
 signal datos_actualizados
-#Señal para avisar que murió un jugador
-signal jugador_murio(id)
+signal jugador_murio(id: int)
+signal meta_huevos_alcanzada
 
-#En esta región del código está la lógica de cómo funciona el gestor si quien lo corre es el servidor.
-#region sistema en servidor
-#Cuando se instancia un nuevo jugador se llama a esta función para crear sus datos.
 func registrar_jugador(id: int) -> void:
-	#Se fija que sea el servidor el que está ejecutando la función.
-	if not multiplayer.is_server():
-		return
-	#Se fija que el id no esté ya registrado
-	if jugadores.has(id):
-		print("ID: "+ str(id)+" ya está registrado.")
-		return
-	#Crea y guarda los datos del personaje. Guarda un diccionario donde la clave para los datos de cada jugador es su id que es igual a su peer_id.
-	jugadores[id] = {"vida": vida_inicial, "puntaje": puntaje_inicial}
+	var vida_max: int = MetaProgression.obtener_vida_maxima() if is_instance_valid(MetaProgression) else vida_inicial
+	vida_inicial = vida_max
+	jugadores[id] = {
+		"vida": vida_max,
+		"vida_maxima": vida_max,
+		"puntaje": puntaje_inicial,
+		"huevos": 0
+	}
+	huevos_recolectados_nivel = 0
+	huevos_objetivo_nivel = MetaProgression.obtener_meta_huevos() if is_instance_valid(MetaProgression) else 5
+	datos_actualizados.emit()
 
-#Función para obtener los datos de un jugador en concreto mediante su id.
-func obtener_datos_jugador(id:int) -> Dictionary:
+func obtener_datos_jugador(id: int) -> Dictionary:
 	if not jugadores.has(id):
 		return {}
 	return jugadores[id]
 
-#Modifica la cantidad de vida de un personaje referenciandolo por su id y pasandole la cantidad a cambiar. Para hacer daño utilizar una cantidad negativa.
-func modificar_vida(id:int, cantidad:int) -> void:
-	if not multiplayer.is_server():
-		return
+func modificar_vida(id: int, cantidad: int) -> void:
 	if not jugadores.has(id):
 		return
-	#Si es un daño comprueba que el jugador no sea invulnerable.
+	if jugadores[id]["vida"] <= 0:
+		return
 	if cantidad < 0 and jugadores_invulnerables.has(id):
 		return
+	var vida_max: int = int(jugadores[id].get("vida_maxima", vida_inicial))
 	jugadores[id]["vida"] += cantidad
 	if jugadores[id]["vida"] <= 0:
+		jugadores[id]["vida"] = 0
+		datos_actualizados.emit()
 		jugador_murio.emit(id)
-	if jugadores[id]["vida"] > 100:
-		jugadores[id]["vida"] = 100
-	sincronizar_datos_a_clientes()
-
-#Modifica la cantidad de puntos de un personaje referenciandolo por su id y pasandole la cantidad a cambiar.
-func modificar_puntaje(id:int, cantidad:int) -> void:
-	if not multiplayer.is_server():
 		return
+	if jugadores[id]["vida"] > vida_max:
+		jugadores[id]["vida"] = vida_max
+	datos_actualizados.emit()
+
+func restaurar_vida_respawn(id: int) -> void:
+	if not jugadores.has(id):
+		return
+	var vida_max: int = MetaProgression.obtener_vida_maxima() if is_instance_valid(MetaProgression) else vida_inicial
+	jugadores[id]["vida_maxima"] = vida_max
+	jugadores[id]["vida"] = vida_max
+	datos_actualizados.emit()
+
+func eliminar_jugador(id: int) -> void:
+	jugadores.erase(id)
+	jugadores_invulnerables.erase(id)
+	datos_actualizados.emit()
+
+func modificar_puntaje(id: int, cantidad: int) -> void:
 	if not jugadores.has(id):
 		return
 	jugadores[id]["puntaje"] += cantidad
-	sincronizar_datos_a_clientes()
+	datos_actualizados.emit()
+
+func registrar_huevo_recolectado(id: int, cantidad: int = 1) -> void:
+	huevos_recolectados_nivel += cantidad
+	if jugadores.has(id):
+		jugadores[id]["huevos"] = huevos_recolectados_nivel
+		jugadores[id]["puntaje"] += cantidad
+	datos_actualizados.emit()
+	if huevos_recolectados_nivel >= huevos_objetivo_nivel:
+		meta_huevos_alcanzada.emit()
+
+func actualizar_tiempo_nivel(segundos_restantes: float) -> void:
+	tiempo_restante_nivel = maxf(0.0, segundos_restantes)
+	datos_actualizados.emit()
 
 #region invulnerabilidad
-#Establece invulnerabilidad sobre un jugador.
 func activar_invulnerabilidad(id: int, duracion: float) -> void:
-	if not multiplayer.is_server():
-		return
-
 	if jugadores_invulnerables.has(id):
 		return
 
@@ -74,53 +96,28 @@ func activar_invulnerabilidad(id: int, duracion: float) -> void:
 	timer.wait_time = duracion
 
 	add_child(timer)
-
 	timer.timeout.connect(_finalizar_invulnerabilidad.bind(id, timer))
 	timer.start()
 
-	print("Jugador ", id, " ahora es invulnerable.")
+	print("Jugador ", id, " ahora es invulnerable por ", duracion, "s.")
 
-#Finaliza la invulnerabilidad en un jugador.
 func _finalizar_invulnerabilidad(id: int, timer: Timer) -> void:
 	jugadores_invulnerables.erase(id)
 	_cambiar_luz_invulnerabilidad(id, false)
-	timer.queue_free()
-
-	print("Jugador ", id, " ya no es invulnerable.")
+	if is_instance_valid(timer):
+		timer.queue_free()
 
 func _cambiar_luz_invulnerabilidad(id: int, activar: bool) -> void:
 	var escena = get_tree().current_scene
-	#Busca el personaje por id en todo el árbol de la escena.
-	var jugador = escena.find_child(str(id), true, false)
-
-	if jugador == null:
-		print("No se encontró al jugador: ", id)
+	if not escena:
 		return
-
+	var jugador = escena.find_child(str(id), true, false)
+	if jugador == null:
+		return
 	var luz := jugador.get_node_or_null("LuzInvulnerabilidad") as OmniLight3D
-
 	if luz:
 		luz.visible = activar
 #endregion
-#Función que le envía a los gestores de cada cliente la información actualizada del servidor.
+
 func sincronizar_datos_a_clientes() -> void:
-	if not multiplayer.is_server():
-		return
-	#Recorre los jugadores guardados y envía sus datos a los gestores de los clientes.
-	for id in jugadores:
-		var datos = jugadores[id]
-		recibir_datos_jugador.rpc(id, datos["vida"], datos["puntaje"])
-	#El host se avisa a su propio HUD que los datos cambiaron.
 	datos_actualizados.emit()
-#endregion
-
-#En esta región está la lógica de cómo funciona el gestor en cada cliente.
-#region sistema en clientes
-
-#Función que se llama remota mediante el gestor de datos del servidor en cada cliente para sincronizar los datos de los gestores.
-@rpc("authority", "call_remote", "reliable")
-func recibir_datos_jugador(id: int, vida: int, puntaje: int) -> void:
-	jugadores[id] = {"vida": vida, "puntaje": puntaje}
-	#El gestor del cliente emite la señal al HUD propio de cada cliente.
-	datos_actualizados.emit()
-#endregion

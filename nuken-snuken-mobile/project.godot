@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="UPSO_Multiplayer"
+config/name="Nuke Snuken Mobile"
 run/main_scene="uid://bbnsr1xagub51"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
@@ -18,21 +18,28 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManagerGm="*uid://bjvm3lhw7rhtv"
-NetworkManager="*uid://bmbcv6kfu1g01"
 GestorDeDatosPjs="*uid://bkvp4val3shg4"
-NetworkManagerSteam="*uid://dpjopa0lrd7xf"
 AplicadorDeEfectos="*uid://j6cxp46v81eg"
 GestorDeObjetos="*uid://df5sk2jldajdu"
+MetaProgression="*res://GM/meta_progression.gd"
+AdManagerSingleton="*res://components/ad_manager.gd"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/handheld/orientation=0
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 mouse_cursor/custom_image_hotspot=Vector2(7, 10)
 
 [dotnet]
 
-project/assembly_name="UPSO_Multiplayer"
+project/assembly_name="NukeSnukenMobile"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/admob/plugin.cfg")
 
 [file_customization]
 
@@ -103,3 +110,6 @@ run={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+lights_and_shadows/directional_shadow/size=2048
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
+occlusion_culling/use_occlusion_culling=true

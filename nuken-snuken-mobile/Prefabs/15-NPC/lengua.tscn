@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bmq2cgww526gs"]
+
+[ext_resource type="PackedScene" uid="uid://l6h0e4h3pop8" path="res://Models/NPCs/lengua.glb" id="1_m7ude"]
+[ext_resource type="Material" uid="uid://dh3ko5w23a36d" path="res://Materials/pinta-Marron.tres" id="2_28vgk"]
+
+[node name="lengua" unique_id=1827733580 instance=ExtResource("1_m7ude")]
+
+[node name="Circle" parent="." index="0" unique_id=1966502841]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 0, 0)
+surface_material_override/0 = ExtResource("2_28vgk")
