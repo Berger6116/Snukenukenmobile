@@ -1,42 +1,42 @@
-[gd_scene format=3 uid="uid://c6persscreen01"]
+[gd_scene format=3 uid="uid://c2602edhacr2w"]
 
-[ext_resource type="Script" path="res://Scenes/Screens/personalizacion_screen.gd" id="1_pers"]
+[ext_resource type="Script" uid="uid://bcv21mk1i84c3" path="res://Scenes/Screens/personalizacion_screen.gd" id="1_pers"]
 [ext_resource type="FontFile" uid="uid://be7icuirs7tmo" path="res://Recursos/Metal Lord.otf" id="2_font"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(0.12, 0.05, 0.24, 0.96)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_green_card"]
-bg_color = Color(0.0, 0.42, 0.08, 0.92)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.2, 0.85, 0.3, 1.0)
-corner_radius_top_left = 14
-corner_radius_top_right = 14
-corner_radius_bottom_right = 14
-corner_radius_bottom_left = 14
 content_margin_left = 16.0
 content_margin_top = 14.0
 content_margin_right = 16.0
 content_margin_bottom = 14.0
+bg_color = Color(0, 0.42, 0.08, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 0.85, 0.3, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_red_btn"]
-bg_color = Color(0.85, 0.08, 0.05, 1.0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1.0, 0.65, 0.55, 1.0)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
 content_margin_left = 20.0
 content_margin_top = 12.0
 content_margin_right = 20.0
 content_margin_bottom = 12.0
+bg_color = Color(0.85, 0.08, 0.05, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.65, 0.55, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="PersonalizacionScreen" type="Control" unique_id=19001001]
 layout_mode = 3
@@ -84,7 +84,7 @@ text = "PERSONALIZACIÓN DE PERSONAJE"
 
 [node name="DiamantesLabel" type="Label" parent="Margin/MainVBox/HeaderHBox" unique_id=19001007]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.3, 1.0, 0.5, 1.0)
+theme_override_colors/font_color = Color(0.3, 1, 0.5, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 26
 text = "DIAMANTES: 30"
@@ -249,7 +249,7 @@ text = "PACK TIENDA (+50 DIAMANTES)"
 
 [node name="FeedbackLabel" type="Label" parent="Margin/MainVBox" unique_id=19001037]
 layout_mode = 2
-theme_override_colors/font_color = Color(1.0, 0.9, 0.35, 1.0)
+theme_override_colors/font_color = Color(1, 0.9, 0.35, 1)
 text = "Seleccioná tus mejoras y presioná Continuar para iniciar el Nivel."
 horizontal_alignment = 1
 

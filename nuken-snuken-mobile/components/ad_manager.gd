@@ -26,7 +26,7 @@ func _on_ads_initialize(_status) -> void:
 	print("[AdManager] AdMob inicializado correctamente!")
 	ads_initialized = true
 
-func create_banner_ad(ad_position: int = AdPosition.Values.BOTTOM) -> void:
+func create_banner_ad(ad_position = AdPosition.Values.BOTTOM) -> void:
 	if not _es_dispositivo_movil:
 		print("[AdManager Simulado] Mostrando Banner Ad en posición: ", ad_position)
 		return
