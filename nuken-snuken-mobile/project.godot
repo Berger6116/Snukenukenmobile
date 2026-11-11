@@ -28,7 +28,6 @@ GestorDeObjetos="*uid://df5sk2jldajdu"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-mouse_cursor/custom_image="uid://gpatkge0h12m"
 mouse_cursor/custom_image_hotspot=Vector2(7, 10)
 
 [dotnet]
@@ -40,7 +39,6 @@ project/assembly_name="UPSO_Multiplayer"
 folder_colors={
 "res://Materials/": "purple",
 "res://Models/": "yellow",
-"res://Prefabs/": "blue",
 "res://Scripts/": "red"
 }
 
