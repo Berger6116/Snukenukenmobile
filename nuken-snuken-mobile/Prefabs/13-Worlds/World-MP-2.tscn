@@ -11,6 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://gq5rd5xjcdt5" path="res://Prefabs/14-Factory/Items/Huevo_Verde.tscn" id="9_40nbd"]
 [ext_resource type="PackedScene" uid="uid://jmi8le0xflb2" path="res://Prefabs/14-Factory/Items/Huevo_Marron.tscn" id="10_7taom"]
 [ext_resource type="Script" uid="uid://brg8voa8x6ldh" path="res://Scripts/camera_follow.gd" id="11_5wl18"]
+[ext_resource type="Texture2D" uid="uid://jyh7ooml7s07" path="res://Recursos/inconos_botones_moviles/correr.png" id="15_garys"]
+[ext_resource type="Texture2D" uid="uid://mvxix483foyg" path="res://Recursos/inconos_botones_moviles/correr_apretado.png" id="16_t2to8"]
+[ext_resource type="Texture2D" uid="uid://cdle0y2kmkqr" path="res://Recursos/inconos_botones_moviles/veneno.png" id="17_tl726"]
+[ext_resource type="Texture2D" uid="uid://bj43si6a2av5" path="res://Recursos/inconos_botones_moviles/veneno_apretado.png" id="18_pdhcf"]
 [ext_resource type="PackedScene" uid="uid://d26l4j8alk52q" path="res://Prefabs/04-Terrains/EnemySpots/Trampas/Trampa_1.tscn" id="19_mh4jy"]
 [ext_resource type="PackedScene" uid="uid://mgm5m5kwtypg" path="res://Prefabs/13-Worlds/Maps/Map2.tscn" id="20_tl726"]
 [ext_resource type="PackedScene" uid="uid://ucwb4qwfgbxh" path="res://Prefabs/15-NPC/CavernosoCueva.tscn" id="21_pdhcf"]
@@ -76,6 +80,12 @@ _data = {
 &"RESET": SubResource("Animation_tl726"),
 &"new_animation": SubResource("Animation_pdhcf")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0ya7"]
+size = Vector2(64, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dtglo"]
+size = Vector2(62, 62)
 
 [node name="WorldMp" type="Node3D" unique_id=51318643]
 script = ExtResource("1_tl726")
@@ -435,3 +445,27 @@ transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 16, 3
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D" unique_id=448517959]
 libraries/ = SubResource("AnimationLibrary_sr2o4")
 autoplay = &"new_animation"
+
+[node name="VirtualJoystick" type="VirtualJoystick" parent="." unique_id=125898360]
+offset_left = 237.0
+offset_top = 442.0
+offset_right = 407.0
+offset_bottom = 612.0
+action_left = &"move_left"
+action_right = &"move_right"
+action_up = &"move_forward"
+action_down = &"move_backward"
+
+[node name="correr" type="TouchScreenButton" parent="." unique_id=257074379]
+position = Vector2(1073, 633)
+texture_normal = ExtResource("15_garys")
+texture_pressed = ExtResource("16_t2to8")
+shape = SubResource("RectangleShape2D_u0ya7")
+action = "run"
+
+[node name="disparar" type="TouchScreenButton" parent="." unique_id=1892093097]
+position = Vector2(1164, 526)
+texture_normal = ExtResource("17_tl726")
+texture_pressed = ExtResource("18_pdhcf")
+shape = SubResource("RectangleShape2D_dtglo")
+action = "shoot_1"
