@@ -7,7 +7,7 @@ class_name HybridInputProvider
 ## 3. Mouse (Click en el mapa)
 
 @export var wasd_provider: WASDInputProvider = null
-@export var mouse_provider: MouseClickInputProvider = null
+#@export var mouse_provider: MouseClickInputProvider = null
 @export var stick_provider: TouchStickInputProvider = null
 
 func _init() -> void:
@@ -16,8 +16,8 @@ func _init() -> void:
 func get_target_direction(body: CharacterBody3D) -> Vector3:
 	if not wasd_provider:
 		wasd_provider = WASDInputProvider.new()
-	if not mouse_provider:
-		mouse_provider = MouseClickInputProvider.new()
+	#if not mouse_provider:
+		#mouse_provider = MouseClickInputProvider.new()
 	if not stick_provider:
 		stick_provider = TouchStickInputProvider.new()
 	
@@ -34,10 +34,10 @@ func get_target_direction(body: CharacterBody3D) -> Vector3:
 			return dir
 
 	# 3. Prioridad: Click de Mouse en el mapa
-	if mouse_provider and mouse_provider.is_active(body):
-		var dir := mouse_provider.get_target_direction(body)
-		if dir.length_squared() > 0.001:
-			return dir
+	#if mouse_provider and mouse_provider.is_active(body):
+		#var dir := mouse_provider.get_target_direction(body)
+		#if dir.length_squared() > 0.001:
+			#return dir
 
 	return Vector3.ZERO
 
@@ -46,6 +46,6 @@ func is_active(body: CharacterBody3D) -> bool:
 		return true
 	if wasd_provider and wasd_provider.is_active(body):
 		return true
-	if mouse_provider and mouse_provider.is_active(body):
-		return true
+	#if mouse_provider and mouse_provider.is_active(body):
+		#return true
 	return false
