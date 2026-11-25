@@ -7,6 +7,7 @@ func _ready() -> void:
 	maquina_estados = escena_maquina.instantiate() as MaquinaDeEstados
 	add_child(maquina_estados)
 	maquina_estados.init(self)
+	AdManagerSingleton.create_banner_ad(AdPosition.BOTTOM)
 
 func _process(delta: float) -> void:
 	if maquina_estados:
@@ -14,6 +15,7 @@ func _process(delta: float) -> void:
 
 func iniciar_nivel() -> void:
 	print(">> Acción: Botón JUGAR presionado -> Pasando a Personalización de Personaje")
+	AdManagerSingleton.hide_banner_ad()
 	if maquina_estados:
 		maquina_estados.change_state(maquina_estados.personalizacion)
 

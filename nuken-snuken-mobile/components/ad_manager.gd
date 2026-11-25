@@ -1,8 +1,8 @@
 extends Node
 class_name AdManager
 
-const AD_ID_BANNER = "ca-app-pub-9036926653791319/6642507886"
-const AD_ID_REWARD = "ca-app-pub-9036926653791319/6748251419"
+const AD_ID_BANNER = "ca-app-pub-3940256099942544/6300978111"
+const AD_ID_REWARD = "ca-app-pub-3940256099942544/5224354917"
 
 var ads_initialized: bool = false
 var _es_dispositivo_movil: bool = false
