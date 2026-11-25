@@ -196,3 +196,6 @@ func _animar_salto(origen: Vector3, destino: Vector3, duracion: float) -> void:
 	if sfx_salto != null:
 		sfx_salto.stop()
 	
+func desactivar_ciclo() -> void:
+	controladorcom.detener_ciclo()
+	esconderse()

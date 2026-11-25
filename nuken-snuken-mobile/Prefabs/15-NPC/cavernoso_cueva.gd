@@ -11,3 +11,7 @@ func _ready() -> void:
 	print(self.name, ' intervalo main: ', intervalo, ' | intervalo controlador: ', cavernoso.controladorcom.intervalo_rutina)
 	cavernoso.tipo_de_sapo = tipo_de_sapo
 	print(self,name , cavernoso.tipo_de_sapo)
+
+func desactivar_cueva():
+	cavernoso.desactivar_ciclo()
+	

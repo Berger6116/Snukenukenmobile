@@ -19,6 +19,7 @@ bullets_pool = SubResource("Resource_7tsqo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=143715155]
 transform = Transform3D(0.395, 0, 0, 0, -1.7265998e-08, -0.395, 0, 0.395, -1.7265998e-08, 0, 0, 0)
+visible = false
 mesh = ExtResource("1_3mpdn")
 surface_material_override/0 = SubResource("StandardMaterial3D_23e1n")
 

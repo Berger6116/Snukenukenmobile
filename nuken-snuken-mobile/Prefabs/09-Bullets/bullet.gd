@@ -38,7 +38,15 @@ func desactivar() -> void:
 	else:
 		queue_free()
 
-# Si tu bala detecta colisiones (por ejemplo con body_entered):
-# func _on_body_entered(body: Node) -> void:
-#     # aplicar daño...
-#     desactivar()
+
+
+
+func _al_chocar(body: Node) -> void:
+	if body.is_in_group("Enemigo"):
+		#La siguiente linea elimina al sapo por completo siempre que el StaticBody de su cueva esté en el grupo "Enemigo"
+		#body.get_parent().get_parent().queue_free()
+		#La siguiente linea desactiva al sapo pero no lo elimina.
+		#body.get_parent().get_parent().desactivar_cueva()
+		#print("Balubi chocandubi contra: ", body.name)
+		pass
+	desactivar()

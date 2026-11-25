@@ -32,12 +32,13 @@ metadata/_custom_type_script = "uid://dnq7d7t577c2h"
 height = 2.13125
 radius = 0.6
 
-[node name="Player-Azul-MP" type="CharacterBody3D" unique_id=874104267 node_paths=PackedStringArray("snake_component") groups=["Global", "Jugador"]]
+[node name="Player-Azul-MP" type="CharacterBody3D" unique_id=874104267 node_paths=PackedStringArray("snake_component", "weapon") groups=["Global", "Jugador"]]
 collision_layer = 2
 collision_mask = 57
 script = ExtResource("1_jiwif")
 movement_component = SubResource("Resource_g4l5k")
 snake_component = NodePath("Snake")
+weapon = NodePath("Weapon1")
 
 [node name="SnakeHead" parent="." unique_id=1274954632 instance=ExtResource("6_tx75y")]
 
@@ -60,8 +61,7 @@ billboard = 1
 font_size = 65
 
 [node name="Weapon1" parent="." unique_id=1134921388 instance=ExtResource("8_v2h02")]
-transform = Transform3D(-0.6379416, 0, -5.2026238e-08, 0, 0.7189474, 0, 5.5770627e-08, 0, -0.5951108, -0.03870243, 1.494971, 0.015077949)
-visible = false
+transform = Transform3D(-0.6379416, 0, -5.2026238e-08, 0, 0.7189474, 0, 5.5770627e-08, 0, -0.5951108, -0.03870243, 0.63290715, -2.3456483)
 
 [node name="Seguimiento" type="Node3D" parent="." unique_id=379956663]
 transform = Transform3D(1, 0, 0, 0, 0.6427876, 0.7660444, 0, -0.7660444, 0.6427876, 0, 1, 0)
