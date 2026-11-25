@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bcv21mk1i84c3" path="res://Scenes/Screens/personalizacion_screen.gd" id="1_pers"]
 [ext_resource type="FontFile" uid="uid://be7icuirs7tmo" path="res://Recursos/Metal Lord.otf" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://deqs5yfotifwg" path="res://Scenes/Screens/snake5.png" id="3_hxuq4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(0.12, 0.05, 0.24, 0.96)
@@ -113,7 +114,14 @@ theme_override_font_sizes/font_size = 20
 text = "SKIN X DIAMANTES"
 horizontal_alignment = 1
 
+[node name="TextureRect" type="TextureRect" parent="Margin/MainVBox/GridCards/CardSkin/VBox" unique_id=1641654671]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.4, 0.825)
+texture = ExtResource("3_hxuq4")
+
 [node name="ColorPreview" type="ColorRect" parent="Margin/MainVBox/GridCards/CardSkin/VBox" unique_id=19001012]
+visible = false
 custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
 color = Color(0.15, 0.45, 0.95, 1)
