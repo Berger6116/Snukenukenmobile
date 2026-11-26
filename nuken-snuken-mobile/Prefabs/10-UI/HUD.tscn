@@ -52,14 +52,27 @@ text = "NIVEL 1   |   HUEVOS: 0 / 5   |   TIEMPO: 01:00   |   VIDA: 100 / 100   
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ControlLayer" type="Control" parent="." unique_id=873896741]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="PanelObjetivo" type="PanelContainer" parent="." unique_id=336488127]
+propagate_maximum_size = false
+layout_mode = 0
+offset_left = 1076.0
+offset_top = 80.0
+offset_right = 1256.0
+offset_bottom = 130.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelObjetivo" unique_id=847384766]
+layout_mode = 2
+
+[node name="TítObjetivo" type="Label" parent="PanelObjetivo/VBoxContainer" unique_id=1044222683]
+layout_mode = 2
+text = "OBJETIVO"
+horizontal_alignment = 1
+
+[node name="ObjetivoLabel" type="Label" parent="PanelObjetivo/VBoxContainer" unique_id=539575416]
+layout_mode = 2
+horizontal_alignment = 2
+autowrap_mode = 2
 
 [node name="DatosDeJugadores" type="Label" parent="." unique_id=726747331]
 visible = false

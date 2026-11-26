@@ -73,13 +73,19 @@ func modificar_puntaje(id: int, cantidad: int) -> void:
 	jugadores[id]["puntaje"] += cantidad
 	datos_actualizados.emit()
 
-func registrar_huevo_recolectado(id: int, cantidad: int = 1) -> void:
+func registrar_huevo_recolectado(id: int, tipo:String, cantidad: int = 1) -> void:
 	huevos_recolectados_nivel += cantidad
 	if jugadores.has(id):
 		jugadores[id]["huevos"] = huevos_recolectados_nivel
 		jugadores[id]["puntaje"] += cantidad
+
+	if huevos_por_tipo.has(tipo):
+		huevos_por_tipo[tipo] = min(huevos_por_tipo[tipo] + cantidad, objetivo_huevos[tipo])
+
 	datos_actualizados.emit()
-	if huevos_recolectados_nivel >= huevos_objetivo_nivel:
+	objetivo_actualizado.emit(objetivo_huevos, huevos_por_tipo)
+
+	if objetivo_huevos_completado():
 		meta_huevos_alcanzada.emit()
 #endregion
 

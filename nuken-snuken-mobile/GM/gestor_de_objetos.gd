@@ -23,7 +23,7 @@ func registrar_recoleccion(jugador: Node3D, nombre_item: String) -> void:
 		jugador.agregar_cuerpo(1)
 	
 	# Contabilizar para la meta de victoria del nivel y conversión a diamantes (1:1)
-	GestorDeDatosPjs.registrar_huevo_recolectado(id, 1)
+	GestorDeDatosPjs.registrar_huevo_recolectado(id, nombre_item, 1)
 	
 	if not lista_objetos.is_empty():
 		if lista_objetos[-1] != nombre_item:
