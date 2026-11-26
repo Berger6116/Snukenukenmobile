@@ -17,6 +17,7 @@ var _powerup_idx: int = 0
 # Card 1: Skins
 @onready var lbl_skin_info: Label = $Margin/MainVBox/GridCards/CardSkin/VBox/InfoLabel
 @onready var color_preview: ColorRect = $Margin/MainVBox/GridCards/CardSkin/VBox/ColorPreview
+@onready var texture_preview : TextureRect = $Margin/MainVBox/GridCards/CardSkin/VBox/TextureRect
 @onready var btn_prev_skin: Button = $Margin/MainVBox/GridCards/CardSkin/VBox/NavHBox/PrevSkinBtn
 @onready var btn_next_skin: Button = $Margin/MainVBox/GridCards/CardSkin/VBox/NavHBox/NextSkinBtn
 @onready var btn_accion_skin: Button = $Margin/MainVBox/GridCards/CardSkin/VBox/ComprarSkinBtn
@@ -87,6 +88,7 @@ func refrescar_ui() -> void:
 	var desbloqueada: bool = skin_id in MetaProgression.skins_desbloqueadas
 	var equipada: bool = (MetaProgression.skin_equipada == skin_id)
 	color_preview.color = skin_data.get("color_preview", Color.WHITE)
+	texture_preview.modulate = skin_data.get("color_preview", Color.WHITE)
 	lbl_skin_info.text = "%s\nEstado: %s" % [
 		skin_data["nombre"],
 		"EQUIPADA" if equipada else ("DESBLOQUEADA" if desbloqueada else ("Costo: %d Diamantes" % skin_data["costo"]))
