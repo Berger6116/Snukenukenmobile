@@ -9,10 +9,13 @@ var jugadores_invulnerables: Array = []
 var huevos_recolectados_nivel: int = 0
 var huevos_objetivo_nivel: int = 5
 var tiempo_restante_nivel: float = 60.0
+var objetivo_huevos: Dictionary = {}
+var huevos_por_tipo: Dictionary = {}
 
 signal datos_actualizados
 signal jugador_murio(id: int)
 signal meta_huevos_alcanzada
+signal objetivo_actualizado(objetivo: Dictionary, recolectados: Dictionary)
 
 func registrar_jugador(id: int) -> void:
 	var vida_max: int = MetaProgression.obtener_vida_maxima() if is_instance_valid(MetaProgression) else vida_inicial
@@ -23,10 +26,11 @@ func registrar_jugador(id: int) -> void:
 		"puntaje": puntaje_inicial,
 		"huevos": 0
 	}
-	huevos_recolectados_nivel = 0
 	huevos_objetivo_nivel = MetaProgression.obtener_meta_huevos() if is_instance_valid(MetaProgression) else 5
+	huevos_recolectados_nivel = 0
+	generar_objetivo_huevos()
 	datos_actualizados.emit()
-
+#region Funciones y datos propios del jugador
 func obtener_datos_jugador(id: int) -> Dictionary:
 	if not jugadores.has(id):
 		return {}
@@ -69,18 +73,48 @@ func modificar_puntaje(id: int, cantidad: int) -> void:
 	jugadores[id]["puntaje"] += cantidad
 	datos_actualizados.emit()
 
-func registrar_huevo_recolectado(id: int, cantidad: int = 1) -> void:
+func registrar_huevo_recolectado(id: int, tipo:String, cantidad: int = 1) -> void:
 	huevos_recolectados_nivel += cantidad
 	if jugadores.has(id):
 		jugadores[id]["huevos"] = huevos_recolectados_nivel
 		jugadores[id]["puntaje"] += cantidad
-	datos_actualizados.emit()
-	if huevos_recolectados_nivel >= huevos_objetivo_nivel:
-		meta_huevos_alcanzada.emit()
 
+	if huevos_por_tipo.has(tipo):
+		huevos_por_tipo[tipo] = min(huevos_por_tipo[tipo] + cantidad, objetivo_huevos[tipo])
+
+	datos_actualizados.emit()
+	objetivo_actualizado.emit(objetivo_huevos, huevos_por_tipo)
+
+	if objetivo_huevos_completado():
+		meta_huevos_alcanzada.emit()
+#endregion
+
+#region datos y funciones de partida
 func actualizar_tiempo_nivel(segundos_restantes: float) -> void:
 	tiempo_restante_nivel = maxf(0.0, segundos_restantes)
 	datos_actualizados.emit()
+
+func generar_objetivo_huevos() -> void:
+	objetivo_huevos.clear()
+	huevos_por_tipo.clear()
+
+	var tipos_huevos = ["HUEVO_MARRON", "HUEVO_VERDE", "HUEVO_AZUL"]
+
+	for i in range(huevos_objetivo_nivel):
+		var huevo: String = tipos_huevos.pick_random()
+		objetivo_huevos[huevo] = objetivo_huevos.get(huevo, 0) + 1
+
+	for huevo in objetivo_huevos:
+		huevos_por_tipo[huevo] = 0
+	
+	objetivo_actualizado.emit(objetivo_huevos, huevos_por_tipo)
+
+func objetivo_huevos_completado() -> bool:
+	for huevo in objetivo_huevos:
+		if huevos_por_tipo[huevo] < objetivo_huevos[huevo]:
+			return false
+	return true
+#endregion
 
 #region invulnerabilidad
 func activar_invulnerabilidad(id: int, duracion: float) -> void:
