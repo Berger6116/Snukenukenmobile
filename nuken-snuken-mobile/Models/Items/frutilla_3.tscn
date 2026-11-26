@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dpbhduqdnipi6"]
+
+[ext_resource type="PackedScene" uid="uid://dqaonq7p3ubrg" path="res://Models/Items/frutilla3.glb" id="1_umicv"]
+[ext_resource type="Material" uid="uid://dh3ko5w23a36d" path="res://Materials/pinta-Marron.tres" id="2_emg70"]
+[ext_resource type="Material" uid="uid://hjer1vra4kk8" path="res://Materials/pinta-Verde.tres" id="3_opcdh"]
+
+[node name="frutilla3" unique_id=895847708 instance=ExtResource("1_umicv")]
+
+[node name="Circle_013" parent="." index="0" unique_id=836031713]
+surface_material_override/0 = ExtResource("2_emg70")
+
+[node name="Circle_014" parent="." index="1" unique_id=1872844933]
+surface_material_override/0 = ExtResource("3_opcdh")

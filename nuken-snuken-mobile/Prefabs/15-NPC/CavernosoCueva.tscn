@@ -4,6 +4,725 @@
 [ext_resource type="Script" uid="uid://cb350kqu6vi6n" path="res://Prefabs/15-NPC/cavernoso_cueva.gd" id="1_mvo6k"]
 [ext_resource type="PackedScene" uid="uid://c3brkew77bp7y" path="res://Prefabs/04-Terrains/EnemySpots/Cueva/Cueva.tscn" id="2_mvo6k"]
 
+[sub_resource type="Animation" id="Animation_y6007"]
+resource_name = "Attack_2"
+length = 2.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CavernosoComp:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 2, 2.3666666),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -5, 1), Vector3(0, 0, 1), Vector3(0, 0, 1), Vector3(0, -5, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CavernosoComp/lengua:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.56666666, 1.5370284),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CavernosoComp/lengua:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.56666666, 0.7, 1.4666667, 1.5370284),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.3129783, 1.2333722, 1), Vector3(0.26956466, 0.95268357, 0.99999994), Vector3(1.3129783, 1.2333722, 1), Vector3(1.3129783, 1.2333722, 1), Vector3(0.26956466, 0.95268357, 0.99999994)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CavernosoComp/lengua:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.6000001, -2)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CavernosoComp:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.16, 0.33333334, 1.9973701, 2.1379378),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 0.39999998), Vector3(1, 1, 1), Vector3(1, 1, 1), Vector3(1, 1, 0.39999998)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CavernosoComp/cavernosoBody/Circle_002:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.36666667, 0.5, 0.56666666, 1.4666667, 1.5333334, 1.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707963, -1.5707963), Vector3(3.774895e-08, 1.5707963, -1.0471975), Vector3(0, 1.5707963, -1.5707963), Vector3(0, 1.5707963, -1.5707963), Vector3(3.774895e-08, 1.5707963, -1.0471975), Vector3(0, 1.5707963, -1.5707963)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CavernosoComp:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.4333333, 2.4517636),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -6.2831855, 0), Vector3(0, -6.2831855, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CavernosoComp/cavernosoBody/Circle_001:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.5, 0.5357462, 0.5690795, 0.6024129, 0.6357462, 0.66907954, 0.70241284, 0.7357462, 0.7690795, 0.80241287, 0.83574617, 0.8690795, 0.90241283, 0.93574625, 0.96907955, 1.002413, 1.0357463, 1.0690796, 1.1024129, 1.1357462, 1.1690795, 1.2024128, 1.2357461, 1.2690794, 1.302413, 1.3333334, 1.3666667, 1.4, 1.4333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707963, 0), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228), Vector3(6.479366e-08, 1.5707963, 0.2617994), Vector3(0.023614421, 1.5644746, -0.26768228)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CavernosoComp/cavernosoBody/Circle_003:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.5, 0.5333333, 0.56666666, 0.6, 0.6333333, 0.6666666, 0.7, 0.73333335, 0.76666665, 0.79999995, 0.8333333, 0.8666667, 0.9, 0.9333333, 0.96666664, 1, 1.0333333, 1.0666666, 1.1, 1.1333333, 1.1666666, 1.1999999, 1.2333333, 1.2666667, 1.3, 1.3333333, 1.3666667, 1.4000001, 1.4333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932), Vector3(2.0337612e-08, 1.5707963, -3.054326), Vector3(6.479365e-08, 1.5707963, -2.8797932)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CavernosoComp/cavernosoBody/Circle_003:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.5, 0.5333333, 0.56666666, 0.6, 0.6333333, 0.6666666, 0.7, 0.73333335, 0.76666665, 0.79999995, 0.8333333, 0.8666667, 0.9, 0.9333333, 0.96666664, 1, 1.0333333, 1.0666666, 1.1, 1.1333333, 1.1666666, 1.1999999, 1.2333333, 1.2666667, 1.3, 1.3333333, 1.3666667, 1.4000001, 1.4333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377), Vector3(-0.8264647, -0.8424213, 0.16324043), Vector3(-0.8264647, -0.8424213, -0.036759377)]
+}
+
+[sub_resource type="Animation" id="Animation_8obta"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CavernosoComp:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CavernosoComp/lengua:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CavernosoComp/lengua:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.3129783, 1.2333722, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CavernosoComp/lengua:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.6000001, -2)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CavernosoComp:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CavernosoComp/cavernosoBody/Circle_002:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5707963, -1.5707963)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CavernosoComp:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CavernosoComp/cavernosoBody/Circle_001:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5707963, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CavernosoComp/cavernosoBody/Circle_003:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(3.0878985e-21, 1.5707963, -3.1415925)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CavernosoComp/cavernosoBody/Circle_003:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.8264647, -0.8424213, -0.036759377)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CavernosoComp/cavernosoBody/Circle_001:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.1199142, -1.1761112, 0.87197137)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("CavernosoComp/cavernosoBody:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("CavernosoComp/cavernosoBody:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 4, -1)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("CavernosoComp/cavernosoBody/Circle_002:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.5708895, -0.4524988)]
+}
+
+[sub_resource type="Animation" id="Animation_o7ule"]
+resource_name = "lightAttack"
+length = 2.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CavernosoComp:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 2, 2.3666666),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -5, 1), Vector3(0, 0, 1), Vector3(0, 0, 1), Vector3(0, -5, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CavernosoComp/lengua:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.3370284),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CavernosoComp/lengua:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.8333333, 1.2666667, 1.3370284),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.3129783, 1.2333722, 1), Vector3(0.26956466, 0.95268357, 0.99999994), Vector3(1.3129783, 1.2333722, 1), Vector3(1.3129783, 1.2333722, 1), Vector3(0.26956466, 0.95268357, 0.99999994)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CavernosoComp/lengua:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.6000001, -2)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CavernosoComp:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.16, 0.33333334, 1.9973701, 2.1379378),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 0.39999998), Vector3(1, 1, 1), Vector3(1, 1, 1), Vector3(1, 1, 0.39999998)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CavernosoComp/cavernosoBody/Circle_002:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.5, 0.6333333, 0.7, 1.2666667, 1.3333334, 1.4666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707963, -1.5707963), Vector3(3.774895e-08, 1.5707963, -1.0471975), Vector3(0, 1.5707963, -1.5707963), Vector3(0, 1.5707963, -1.5707963), Vector3(3.774895e-08, 1.5707963, -1.0471975), Vector3(0, 1.5707963, -1.5707963)]
+}
+
+[sub_resource type="Animation" id="Animation_4c3rw"]
+resource_name = "muerte"
+length = 1.0167
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CavernosoComp:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.13333334, 0.26666668, 0.46666667, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 1), Vector3(0, 3.3, -1.3849993), Vector3(0, 3.3, -1.3849993), Vector3(0, -1.4, -1.385), Vector3(0, -1.4, -1.385)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CavernosoComp:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.13333334, 0.26666668, 1.0016665),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.0471976, 0, 0), Vector3(1.0471976, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CavernosoComp/cavernosoBody/Circle_003:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.13333334, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.8264647, -0.8424213, 0.16324067), Vector3(-0.8264647, -0.5862026, 1.1194582)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CavernosoComp/cavernosoBody/Circle_003:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.13333334, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707964, 3.8100538), Vector3(-6.184425e-08, 1.5707963, 2.1816618)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CavernosoComp/cavernosoBody/Circle_001:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.13333334, 0.23333333, 0.26666665, 0.3, 0.3333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.1199142, -1.1761112, 0.87197113), Vector3(-1.1199142, -0.9234829, 2.634407), Vector3(-1.12, -0.174, 2.723), Vector3(-1.1199142, -0.9234829, 2.634407), Vector3(-1.12, -0.174, 2.723)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CavernosoComp/cavernosoBody/Circle_001:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.13333334, 0.23333333, 0.26666665, 0.3, 0.3333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707963, 0), Vector3(-7.292539e-08, 1.5707964, -1.8325958), Vector3(-2.0657412e-08, 1.5707964, -2.617994), Vector3(-7.292539e-08, 1.5707964, -1.8325958), Vector3(-2.0657412e-08, 1.5707964, -2.617994)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CavernosoComp:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.13333334, 0.26666668, 0.46666667, 0.6, 1.0016665),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(0.78, 0.78, 0.78), Vector3(0.78, 0.78, 0.78), Vector3(0.66, 0.66, 0.66), Vector3(0.66, 0.66, 0.66)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CavernosoComp/lengua:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.13333334, 0.20000002, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.3129783, 1.2333722, 1), Vector3(0.8519518, 0.515451, 1), Vector3(0.18928899, 0.9163778, 0.99999994)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CavernosoComp/lengua:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.2666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CavernosoComp/cavernosoBody/Circle_002:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5707963, -1.5707963)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CavernosoComp/cavernosoBody:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.17174526, 0.21105014),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-6.2831855, 0, 0), Vector3(-2.3928463, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3u87c"]
+resource_name = "rin"
+length = 1.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CavernosoComp/cavernosoBody:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.5, 0.6142159, 1.2333333, 1.3, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 2, -6), Vector3(0, 2.31, -6), Vector3(0, 4.6000004, -10.1), Vector3(0, 4.611999, -11.349355), Vector3(0, 2, -18.332), Vector3(0, 2, -19), Vector3(0, 2, -19)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CavernosoComp/cavernosoBody:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 1.1666666, 1.2666667, 1.4661205, 1.8994539),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.3874631, 0, 0), Vector3(0, 0, 0), Vector3(-0.38571778, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CavernosoComp/cavernosoBody/Circle_001:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.09946817, 0.16666667, 0.24209462, 0.3, 0.6251894, 1.0666667, 1.2333333, 1.3333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.1199142, -1.0761113, 0.69876635), Vector3(-1.1199142, -1.0761113, 0.69876635), Vector3(-1.1199142, -1.3023525, 0.889511), Vector3(-1.1199142, -1.4038765, 1.6111075), Vector3(-1.11, -1.458, 1.934), Vector3(-1.1199142, -1.2325902, 1.1673484), Vector3(-1.1199142, -1.0399977, 0.5421864), Vector3(-1.1199142, -1.0399977, 0.5421864), Vector3(-1.1199142, -1.0761113, 0.69876635)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CavernosoComp/cavernosoBody/Circle_001:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.09946817, 0.16666667, 0.24209462, 0.3, 0.6251894, 1.0666667, 1.2333333, 1.3333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707963, 0), Vector3(0, 1.5707963, 0), Vector3(0, 1.5707963, -0.2617994), Vector3(2.3540958e-15, 1.5707963, -0.7611832), Vector3(-1.7824606e-15, 1.5707963, -1.0342842), Vector3(-8.676274e-15, 1.5707963, -0.53583986), Vector3(-1.40226e-15, 1.5707963, 0.29899552), Vector3(-1.40226e-15, 1.5707963, 0.29899552), Vector3(0, 1.5707963, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CavernosoComp/cavernosoBody/Circle_002:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.5708895, -0.4524988)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CavernosoComp/cavernosoBody/Circle_002:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.24209462),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707963, -1.5707963), Vector3(5.1026255e-16, 1.5707963, -1.4835298)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CavernosoComp/cavernosoBody/Circle_003:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.11439636, 0.24209462, 0.8, 1.4666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.8264647, -0.8424213, 0.16324067), Vector3(-0.8264647, -0.77430075, -0.2759108), Vector3(-0.8264647, -0.70937854, -0.3462855), Vector3(-0.8264647, -0.70937854, -0.3462855), Vector3(-0.8264647, -0.8424213, 0.16324067)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CavernosoComp/cavernosoBody/Circle_003:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.11439636, 0.24209462, 0.8, 1.4666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(3.0878985e-21, 1.5707963, -3.1415925), Vector3(2.376521e-15, 1.5707963, -2.7052603), Vector3(7.3394244e-15, 1.5707963, -2.5710857), Vector3(7.3394244e-15, 1.5707963, -2.5710857), Vector3(3.0878985e-21, 1.5707963, -3.1415925)]
+}
+
+[sub_resource type="Animation" id="Animation_vc5wo"]
+resource_name = "rin_2"
+length = 3.5000000000000004
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CavernosoComp/cavernosoBody:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.5, 0.6142159, 1.2333333, 2, 2.1666667, 2.5, 2.6142159, 3.2333333, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 2, -6), Vector3(0, 2.31, -6), Vector3(0, 4.6000004, -10.1), Vector3(0, 4.612, -12), Vector3(0, 2, -19), Vector3(0, 2, -19), Vector3(0, 2.31, -19), Vector3(0, 4.6, -23), Vector3(0, 4.612, -25), Vector3(0, 2, -32), Vector3(0, 2, -32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CavernosoComp/cavernosoBody:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 1.1666666, 1.2666667, 1.4661205, 2, 2.3, 2.5, 3.1666665, 3.2666667, 3.4994538),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.3874631, 0, 0), Vector3(0, 0, 0), Vector3(-0.38571778, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0.3874631, 0, 0), Vector3(0, 0, 0), Vector3(-0.38571778, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CavernosoComp/cavernosoBody/Circle_001:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.09946817, 0.16666667, 0.24209462, 0.3, 0.6251894, 1.0666667, 1.2333333, 1.3333334, 2, 2.0994682, 2.1666667, 2.2420945, 2.3, 2.6251893, 3.0666666, 3.2333333, 3.3333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.1199142, -1.0761113, 0.69876635), Vector3(-1.1199142, -1.0761113, 0.69876635), Vector3(-1.1199142, -1.3023525, 0.889511), Vector3(-1.1199142, -1.4038765, 1.6111075), Vector3(-1.11, -1.458, 1.934), Vector3(-1.1199142, -1.2325902, 1.1673484), Vector3(-1.1199142, -1.0399977, 0.5421864), Vector3(-1.1199142, -1.0399977, 0.5421864), Vector3(-1.1199142, -1.0761113, 0.69876635), Vector3(-1.1199142, -1.0761113, 0.69876635), Vector3(-1.1199142, -1.0761113, 0.69876635), Vector3(-1.1199142, -1.3023525, 0.889511), Vector3(-1.1199142, -1.4038765, 1.6111075), Vector3(-1.11, -1.458, 1.934), Vector3(-1.1199142, -1.2325902, 1.1673484), Vector3(-1.1199142, -1.0399977, 0.5421864), Vector3(-1.1199142, -1.0399977, 0.5421864), Vector3(-1.1199142, -1.0761113, 0.69876635)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CavernosoComp/cavernosoBody/Circle_001:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.09946817, 0.16666667, 0.24209462, 0.3, 0.6251894, 1.0666667, 1.2333333, 1.3333334, 2, 2.0994682, 2.1666667, 2.2420945, 2.3, 2.6251893, 3.0666666, 3.2333333, 3.3333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707963, 0), Vector3(0, 1.5707963, 0), Vector3(0, 1.5707963, -0.2617994), Vector3(2.3540958e-15, 1.5707963, -0.7611832), Vector3(-1.7824606e-15, 1.5707963, -1.0342842), Vector3(-8.676274e-15, 1.5707963, -0.53583986), Vector3(-1.40226e-15, 1.5707963, 0.29899552), Vector3(-1.40226e-15, 1.5707963, 0.29899552), Vector3(0, 1.5707963, 0), Vector3(0, 1.5707963, 0), Vector3(0, 1.5707963, 0), Vector3(0, 1.5707963, -0.2617994), Vector3(2.3540958e-15, 1.5707963, -0.7611832), Vector3(-1.7824606e-15, 1.5707963, -1.0342842), Vector3(-8.676274e-15, 1.5707963, -0.53583986), Vector3(-1.40226e-15, 1.5707963, 0.29899552), Vector3(-1.40226e-15, 1.5707963, 0.29899552), Vector3(0, 1.5707963, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CavernosoComp/cavernosoBody/Circle_002:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.5708895, -0.4524988), Vector3(0, 0.5708895, -0.4524988)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CavernosoComp/cavernosoBody/Circle_002:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.24209462, 2, 2.2420945),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707963, -1.5707963), Vector3(5.1026255e-16, 1.5707963, -1.4835298), Vector3(0, 1.5707963, -1.5707963), Vector3(5.1026255e-16, 1.5707963, -1.4835298)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CavernosoComp/cavernosoBody/Circle_003:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.11439636, 0.24209462, 0.8, 1.4666667, 2, 2.1143963, 2.2420945, 2.8, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.8264647, -0.8424213, 0.16324067), Vector3(-0.8264647, -0.77430075, -0.2759108), Vector3(-0.8264647, -0.70937854, -0.3462855), Vector3(-0.8264647, -0.70937854, -0.3462855), Vector3(-0.8264647, -0.8424213, 0.16324067), Vector3(-0.8264647, -0.8424213, 0.16324067), Vector3(-0.8264647, -0.77430075, -0.2759108), Vector3(-0.8264647, -0.70937854, -0.3462855), Vector3(-0.8264647, -0.70937854, -0.3462855), Vector3(-0.8264647, -0.8424213, 0.16324067)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CavernosoComp/cavernosoBody/Circle_003:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.11439636, 0.24209462, 0.8, 1.4666667, 2, 2.1143963, 2.2420945, 2.8, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(3.0878985e-21, 1.5707963, -3.1415925), Vector3(2.376521e-15, 1.5707963, -2.7052603), Vector3(7.3394244e-15, 1.5707963, -2.5710857), Vector3(7.3394244e-15, 1.5707963, -2.5710857), Vector3(3.0878985e-21, 1.5707963, -3.1415925), Vector3(3.0878985e-21, 1.5707963, -3.1415925), Vector3(2.376521e-15, 1.5707963, -2.7052603), Vector3(7.3394244e-15, 1.5707963, -2.5710857), Vector3(7.3394244e-15, 1.5707963, -2.5710857), Vector3(3.0878985e-21, 1.5707963, -3.1415925)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y6007"]
+_data = {
+&"Attack_2": SubResource("Animation_y6007"),
+&"RESET": SubResource("Animation_8obta"),
+&"lightAttack": SubResource("Animation_o7ule"),
+&"muerte": SubResource("Animation_4c3rw"),
+&"rin": SubResource("Animation_3u87c"),
+&"rin_2": SubResource("Animation_vc5wo")
+}
+
 [node name="CavernosoCueva" type="Node3D" unique_id=1644780922]
 script = ExtResource("1_mvo6k")
 intervalo = 5.0
@@ -11,5 +730,23 @@ intervalo = 5.0
 [node name="CavernosoComp" parent="." unique_id=383930312 instance=ExtResource("1_82fle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
+[node name="Circle_001" parent="CavernosoComp/cavernosoBody" parent_id_path=PackedInt32Array(383930312, 703141811) index="1" unique_id=1650002829]
+transform = Transform3D(1.9648104e-08, 0, 0.26024705, 0, 0.26024702, 0, -0.26024702, 0, 1.9648105e-08, -1.1199142, -1.1761112, 0.87197137)
+
+[node name="Circle_002" parent="CavernosoComp/cavernosoBody" parent_id_path=PackedInt32Array(383930312, 703141811) index="2" unique_id=475157041]
+transform = Transform3D(4.9418613e-15, 6.545693e-08, 0.8670034, -0.8670033, 6.545693e-08, 0, -6.545693e-08, -0.8670033, 6.545694e-08, 0, 0.5708895, -0.4524988)
+
+[node name="Circle_003" parent="CavernosoComp/cavernosoBody" parent_id_path=PackedInt32Array(383930312, 703141811) index="3" unique_id=21841493]
+transform = Transform3D(-1.1062964e-08, 1.6704607e-15, 0.14653338, -2.2125928e-08, -0.1465334, -4.524802e-22, 0.1465334, -2.2125928e-08, 1.1062963e-08, -0.8264647, -0.8424213, -0.036759377)
+
+[node name="lengua" parent="CavernosoComp" index="8" unique_id=1827733580]
+transform = Transform3D(-5.9281057e-08, -4.7545906e-10, 1, -0.33982387, 1.191346, -1.131334e-08, -1.2682396, -0.3192203, -4.371139e-08, 0, 3.6000001, -2)
+
 [node name="Cueva" parent="." unique_id=290491093 instance=ExtResource("2_mvo6k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1505233230]
+libraries/ = SubResource("AnimationLibrary_y6007")
+
+[editable path="CavernosoComp"]
+[editable path="CavernosoComp/cavernosoBody"]

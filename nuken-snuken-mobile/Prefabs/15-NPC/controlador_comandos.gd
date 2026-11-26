@@ -63,6 +63,14 @@ func ejecutar_rutina() -> void:
 	rutina_finalizada.emit()
 
 func configurar_rutina() -> void:
+	var usa_anims: bool = actor != null and actor.has_method("usa_animaciones") and actor.usa_animaciones()
+	if usa_anims:
+		# Las animaciones lightAttack / Attack_2 ya incluyen emerger, atacar y esconderse.
+		if tipo_de_sapo == "Normal":
+			rutina = [ComandoAtacar.new()]
+		elif tipo_de_sapo == "Giratorio":
+			rutina = [ComandoAtacarGirando.new()]
+		return
 	if tipo_de_sapo == "Normal":
 		rutina = [ComandoEmerger.new(), ComandoEsperar.new(1.0), ComandoAtacar.new(), ComandoEsconderse.new()]
 	elif tipo_de_sapo == "Giratorio":

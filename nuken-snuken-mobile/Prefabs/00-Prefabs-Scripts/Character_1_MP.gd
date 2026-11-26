@@ -31,6 +31,7 @@ var _material_skin: Material = null
 
 @onready var camera: Camera3D = $Seguimiento/Camera3D
 @onready var luz_invulnerabilidad: OmniLight3D = $LuzInvulnerabilidad
+@onready var anim_player: AnimationPlayer = get_node_or_null("AnimationPlayer")
 
 func _ready() -> void:
 	_cantidad_cuerpos_inicial = cantidad_cuerpos
@@ -54,8 +55,10 @@ func _ready() -> void:
 
 	if esta_muerto:
 		_aplicar_estado_muerto(true)
-	elif camera:
-		camera.current = true
+	else:
+		if camera:
+			camera.current = true
+		_reproducir_idle()
 
 func _physics_process(delta: float) -> void:
 	if esta_muerto:
@@ -115,10 +118,35 @@ func agregar_cuerpo(cant: int = 1) -> void:
 	cantidad_cuerpos += cant
 
 func quitar_cuerpo(cant: int = 1) -> void:
+	var id := int(str(name)) if str(name).is_valid_int() else id_jugador
+	if esta_muerto or GestorDeDatosPjs.jugadores_invulnerables.has(id):
+		return
 	if cantidad_cuerpos > 0:
 		cantidad_cuerpos -= cant
 	if cantidad_cuerpos < 0:
 		cantidad_cuerpos = 0
+	_ejecutar_animacion_danio_local()
+
+func _reproducir_idle() -> void:
+	if anim_player and anim_player.has_animation("IDLE"):
+		anim_player.play("IDLE")
+
+func _ejecutar_animacion_danio_local() -> void:
+	if not anim_player or not anim_player.has_animation("RECIBE_DANIO"):
+		return
+	anim_player.stop()
+	anim_player.play("RECIBE_DANIO")
+	await anim_player.animation_finished
+	if is_inside_tree() and anim_player and not esta_muerto:
+		if anim_player.has_animation("RESET"):
+			anim_player.play("RESET")
+			anim_player.advance(0.0)
+		_reproducir_idle()
+
+func reproducir_animacion_victoria() -> void:
+	if anim_player and anim_player.has_animation("victoria"):
+		anim_player.stop()
+		anim_player.play("victoria")
 
 func empujar() -> void:
 	for i in get_slide_collision_count():
@@ -168,6 +196,10 @@ func respawnear_en_servidor(pos_spawn: Vector3) -> void:
 		snake_component.reiniciar_en_posicion(self, pos_spawn)
 	# Otorgar 3 segundos de invulnerabilidad tras revivir para no morir de inmediato
 	GestorDeDatosPjs.activar_invulnerabilidad(id, 3.0)
+	if anim_player and anim_player.has_animation("RESET"):
+		anim_player.play("RESET")
+		anim_player.advance(0.0)
+	_reproducir_idle()
 
 func _aplicar_estado_muerto(muerto: bool) -> void:
 	visible = not muerto

@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cdle0y2kmkqr" path="res://Recursos/inconos_botones_moviles/veneno.png" id="17_tl726"]
 [ext_resource type="Texture2D" uid="uid://bj43si6a2av5" path="res://Recursos/inconos_botones_moviles/veneno_apretado.png" id="18_pdhcf"]
 [ext_resource type="PackedScene" uid="uid://d26l4j8alk52q" path="res://Prefabs/04-Terrains/EnemySpots/Trampas/Trampa_1.tscn" id="19_mh4jy"]
-[ext_resource type="PackedScene" uid="uid://mgm5m5kwtypg" path="res://Prefabs/13-Worlds/Maps/Map2.tscn" id="20_tl726"]
+[ext_resource type="PackedScene" uid="uid://bwmkowa3woy4r" path="res://Prefabs/13-Worlds/Maps/Map4.tscn" id="20_tl726"]
 [ext_resource type="PackedScene" uid="uid://ucwb4qwfgbxh" path="res://Prefabs/15-NPC/CavernosoCueva.tscn" id="21_pdhcf"]
 
 [sub_resource type="Animation" id="Animation_tl726"]
@@ -143,7 +143,7 @@ layout_mode = 2
 text = "Salir al Menú"
 
 [node name="SpawnPos" type="Node3D" parent="." unique_id=439991998]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6943264, 1.2812519, 36.43371)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.598461, 0, 48.204964)
 
 [node name="FabricasItems" type="Node3D" parent="." unique_id=2132442442 node_paths=PackedStringArray("Fabrica1", "Fabrica1_Spawns", "Fabrica2", "Fabrica2_Spawns", "Fabrica3", "Fabrica3_Spawns")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54, -18.374792)
@@ -226,7 +226,7 @@ metadata/_edit_group_ = true
 [node name="Huevo_Verde" parent="SpawnPosHuevos/Verdes/Verde-3" unique_id=1946778570 instance=ExtResource("9_40nbd")]
 
 [node name="Verde-4" type="Node3D" parent="SpawnPosHuevos/Verdes" unique_id=686100874]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.917841, 0, 19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.917841, 0, 21)
 metadata/_edit_group_ = true
 
 [node name="Huevo_Verde" parent="SpawnPosHuevos/Verdes/Verde-4" unique_id=450485996 instance=ExtResource("9_40nbd")]
@@ -234,7 +234,7 @@ metadata/_edit_group_ = true
 [node name="Marrones" type="Node3D" parent="SpawnPosHuevos" unique_id=1808989285]
 
 [node name="Marron-1" type="Node3D" parent="SpawnPosHuevos/Marrones" unique_id=1871343401]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9939, 0, -11.141865)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9939, 0, -21.141865)
 metadata/_edit_group_ = true
 
 [node name="Huevo_Marron" parent="SpawnPosHuevos/Marrones/Marron-1" unique_id=313731952 instance=ExtResource("10_7taom")]
@@ -271,16 +271,12 @@ intervalo = 2.2
 tipo_de_sapo = "Giratorio"
 
 [node name="CavernosoCueva" parent="Sapos/chicos" unique_id=1644780922 instance=ExtResource("21_pdhcf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -1, -19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, -1, -20)
 intervalo = 1.5
 tipo_de_sapo = "Giratorio"
 
-[node name="CavernosoCueva3" parent="Sapos/chicos" unique_id=1998081705 instance=ExtResource("21_pdhcf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, -1, 15)
-intervalo = 1.5
-
 [node name="CavernosoCueva4" parent="Sapos/chicos" unique_id=731207622 instance=ExtResource("21_pdhcf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, -1, -23)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -1, -23)
 intervalo = 2.4
 tipo_de_sapo = "Giratorio"
 
@@ -292,12 +288,8 @@ intervalo = 2.5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -1, -1)
 intervalo = 1.8
 
-[node name="CavernosoCueva8" parent="Sapos/chicos" unique_id=1909058315 instance=ExtResource("21_pdhcf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, -1, 14)
-intervalo = 2.1
-
 [node name="CavernosoCueva9" parent="Sapos/chicos" unique_id=1978544194 instance=ExtResource("21_pdhcf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -1, 28)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, -1, 18)
 intervalo = 2.1
 tipo_de_sapo = "Giratorio"
 
@@ -436,7 +428,7 @@ transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70
 danio = 5
 
 [node name="Map" parent="." unique_id=588045091 instance=ExtResource("20_tl726")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10420227, -0.98995286, -0.008384705)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 metadata/_edit_lock_ = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1967678520]

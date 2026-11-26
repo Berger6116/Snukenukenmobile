@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c4dupjt5b17h7"]
+
+[ext_resource type="PackedScene" uid="uid://equfm51sal24" path="res://Models/Items/banana2.glb" id="1_oldjp"]
+[ext_resource type="Material" uid="uid://bw6dgc2wfm2ay" path="res://Materials/amarillo.tres" id="2_a1i63"]
+
+[node name="banana2" unique_id=651548182 instance=ExtResource("1_oldjp")]
+
+[node name="Circle_011" parent="." index="0" unique_id=669391877]
+surface_material_override/0 = ExtResource("2_a1i63")

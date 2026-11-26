@@ -26,6 +26,7 @@ signal escondio
 @export var tiempo_activo_ataque: float = 0.4
 @export var sfx_salto: AudioStreamPlayer3D
 @export var sfx_ataque: AudioStreamPlayer3D
+@export var animation_player: AnimationPlayer
 
 @export_group("Comandos")
 @export var intervalo :float = 2:
@@ -44,36 +45,61 @@ signal escondio
 var posicion_cueva: Vector3
 var posicion_afuera: Vector3
 var _escala_original: Vector3 = Vector3.ONE
+var _desactivado: bool = false
+var _ciclo_token: int = 0
+
+func usa_animaciones() -> bool:
+	return animation_player != null and is_instance_valid(animation_player)
 
 func _ready() -> void:
+	if animation_player == null and get_parent() != null:
+		animation_player = get_parent().get_node_or_null("AnimationPlayer") as AnimationPlayer
+
 	controladorcom.intervalo_rutina = intervalo
 	controladorcom.tipo_de_sapo = tipo_de_sapo
 	controladorcom.configurar_rutina()
 	
 	_escala_original = scale
 	
-	# Fijar coordenadas en vectores inmutables
-	if punto_cueva != null:
-		posicion_cueva = punto_cueva.global_position
-		modelo3D.global_position = posicion_cueva
-		print("DEBUG POSICION CAVERNOSO | [Cavernoso] Modelo: ",modelo3D.name," | Posición global: ",modelo3D.global_position)
+	if usa_animaciones():
+		# Las animaciones mueven CavernosoComp:position entre Y=-5 (escondido) e Y=0 (emergido),
+		# manteniendo cavernosoBody en su offset base local.
+		position = Vector3(0.0, -5.0, 1.0)
+		if punto_cueva != null:
+			posicion_cueva = punto_cueva.global_position
+		else:
+			posicion_cueva = global_position
+		if punto_salida != null:
+			posicion_afuera = punto_salida.global_position
+		else:
+			posicion_afuera = posicion_cueva
 	else:
-		posicion_cueva = global_position
-	
-	if punto_salida != null:
-		posicion_afuera = punto_salida.global_position
-	else:
-		posicion_afuera = posicion_cueva + transform.basis * Vector3(0, 0, 0.0)
+		# Fijar coordenadas en vectores inmutables (fallback procedural sin AnimationPlayer)
+		if punto_cueva != null:
+			posicion_cueva = punto_cueva.global_position
+			modelo3D.global_position = posicion_cueva
+			print("DEBUG POSICION CAVERNOSO | [Cavernoso] Modelo: ",modelo3D.name," | Posición global: ",modelo3D.global_position)
+		else:
+			posicion_cueva = global_position
+		
+		if punto_salida != null:
+			posicion_afuera = punto_salida.global_position
+		else:
+			posicion_afuera = posicion_cueva + transform.basis * Vector3(0, 0, 0.0)
 	
 	# Inicializar hitbox apagado
 	if hitbox_ataque != null:
 		hitbox_ataque.monitoring = false
 		hitbox_ataque.visible = false
+	if lengua_ataque != null:
 		lengua_ataque.visible = false
 
 ## 1. Acción: Emerger (Salto parabólico de la cueva hacia afuera)
 func emerger() -> void:
-	if not is_inside_tree():
+	if not is_inside_tree() or _desactivado:
+		return
+	if usa_animaciones():
+		emergio.emit()
 		return
 	#Giramos aleatoriamente el escuerzo.
 	rotation.y = randf_range(0.0, TAU)
@@ -82,33 +108,31 @@ func emerger() -> void:
 
 ## 2. Acción: Esperar un tiempo determinado
 func esperar(segundos: float) -> void:
-	if not is_inside_tree():
+	if not is_inside_tree() or _desactivado:
 		return
 	await get_tree().create_timer(segundos).timeout
 
-## 3. Acción: Atacar en área (Squash/stretch preparatorio + activación de hitbox)
+## 3. Acción: Atacar en área (animado con lightAttack o fallback procedural)
 func atacar_area() -> void:
-	if not is_inside_tree():
+	if not is_inside_tree() or _desactivado:
+		return
+
+	if usa_animaciones() and animation_player.has_animation("lightAttack"):
+		rotation = Vector3(0.0, randf_range(0.0, TAU), 0.0)
+		await _ejecutar_ataque_animado("lightAttack", 0.70, 1.34)
 		return
 		
 	if sfx_ataque != null: #SFX
 		sfx_ataque.play()
 		
-	# A. Anticipación (se comprime preparando el golpe)
-	#var tween_prep := create_tween()
-	#tween_prep.tween_property(self, "scale", _escala_original * Vector3(1.3, 0.6, 1.3), tiempo_aviso_ataque)
-	#await tween_prep.finished
-	if not is_inside_tree():
+	if not is_inside_tree() or _desactivado:
 		return
-	
-	# B. Impacto y activación del Area3D de daño
-	#var tween_impacto := create_tween()
-	#tween_impacto.tween_property(self, "scale", _escala_original * Vector3(0.85, 1.35, 0.85), 0.1)
 	
 	if hitbox_ataque != null:
 		hitbox_ataque.monitoring = true
 		hitbox_ataque.visible = false
-		lengua_ataque.visible = true
+		if lengua_ataque != null:
+			lengua_ataque.visible = true
 		if particulas_ataque != null:
 			particulas_ataque.restart()
 		
@@ -125,27 +149,77 @@ func atacar_area() -> void:
 	if hitbox_ataque != null:
 		hitbox_ataque.monitoring = false
 		hitbox_ataque.visible = false
+	if lengua_ataque != null:
 		lengua_ataque.visible = false
-		
-	
-	# C. Retorno a la escala normal
-	#var tween_recup := create_tween()
-	#tween_recup.tween_property(self, "scale", _escala_original, 0.2)
-	#await tween_recup.finished
 	
 	ataco.emit()
 	if sfx_ataque != null:
 		sfx_ataque.stop()
 
-## 3b. Acción: Girar y atacar
+## 3b. Acción: Girar y atacar (animado con Attack_2 o fallback procedural)
 func atacar_girando() -> void:
+	if not is_inside_tree() or _desactivado:
+		return
+	if usa_animaciones() and animation_player.has_animation("Attack_2"):
+		await _ejecutar_ataque_animado("Attack_2", 0.57, 1.54)
+		return
 	var tween_giro := create_tween()
 	tween_giro.tween_property(self, "rotation:y", rotation.y + TAU * 2, tiempo_activo_ataque).set_trans(Tween.TRANS_LINEAR)
 	await atacar_area()
 
+## Sincroniza el AnimationPlayer (emerger + lengua + esconderse) con el hitbox, partículas y SFX
+func _ejecutar_ataque_animado(nombre_anim: String, inicio_hitbox: float, fin_hitbox: float) -> void:
+	var token := _ciclo_token
+	if sfx_salto != null:
+		sfx_salto.play()
+
+	animation_player.stop()
+	animation_player.play(nombre_anim)
+
+	# Esperar hasta que sale la lengua para activar hitbox y SFX de ataque
+	await get_tree().create_timer(inicio_hitbox).timeout
+	if not is_inside_tree() or _desactivado or token != _ciclo_token:
+		return
+
+	if sfx_ataque != null:
+		sfx_ataque.play()
+	if particulas_ataque != null:
+		particulas_ataque.restart()
+	if hitbox_ataque != null:
+		hitbox_ataque.monitoring = true
+		hitbox_ataque.visible = false
+		for body in hitbox_ataque.get_overlapping_bodies():
+			if hitbox_ataque.has_method("_on_body_entered"):
+				hitbox_ataque._on_body_entered(body)
+
+	# Mantener hitbox activo mientras dura la lengua
+	await get_tree().create_timer(maxf(0.05, fin_hitbox - inicio_hitbox)).timeout
+	if not is_inside_tree() or token != _ciclo_token:
+		return
+
+	if hitbox_ataque != null:
+		hitbox_ataque.monitoring = false
+	if sfx_ataque != null:
+		sfx_ataque.stop()
+
+	# Esperar a que termine de esconderse la animación
+	if animation_player.is_playing() and animation_player.current_animation == nombre_anim:
+		await animation_player.animation_finished
+
+	if not is_inside_tree() or token != _ciclo_token:
+		return
+
+	if sfx_salto != null:
+		sfx_salto.stop()
+	ataco.emit()
+
 ## 4. Acción: Esconderse (Salto parabólico de regreso a la cueva)
 func esconderse() -> void:
 	if not is_inside_tree():
+		return
+	if usa_animaciones():
+		position = Vector3(0.0, -5.0, 1.0)
+		escondio.emit()
 		return
 	await _animar_salto(modelo3D.global_position, posicion_cueva, duracion_salto)
 	escondio.emit()
@@ -197,5 +271,22 @@ func _animar_salto(origen: Vector3, destino: Vector3, duracion: float) -> void:
 		sfx_salto.stop()
 	
 func desactivar_ciclo() -> void:
+	if _desactivado:
+		return
+	_desactivado = true
+	_ciclo_token += 1
 	controladorcom.detener_ciclo()
-	esconderse()
+	if hitbox_ataque != null:
+		hitbox_ataque.monitoring = false
+	if sfx_ataque != null:
+		sfx_ataque.stop()
+	if sfx_salto != null:
+		sfx_salto.stop()
+	if usa_animaciones() and animation_player.has_animation("muerte"):
+		animation_player.stop()
+		animation_player.play("muerte")
+		await animation_player.animation_finished
+		if is_inside_tree():
+			visible = false
+	else:
+		esconderse()

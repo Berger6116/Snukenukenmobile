@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cnhaqedchwhr4"]
+
+[ext_resource type="PackedScene" uid="uid://cx5wbu2hv8mjx" path="res://Models/Snake/Sombreros/corona.glb" id="1_eaigr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3ali"]
+albedo_color = Color(0.8740246, 0.91740716, 0.20728049, 1)
+metallic = 0.15
+metallic_specular = 0.36
+roughness = 0.31
+emission_enabled = true
+emission = Color(0.50799245, 0.51802546, 0.002933858, 1)
+emission_energy_multiplier = 0.97
+
+[node name="corona" unique_id=1216951026 instance=ExtResource("1_eaigr")]
+
+[node name="Circle" parent="." index="0" unique_id=1993939029]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0029272586, -0.06419492, -8.416176e-05)
+surface_material_override/0 = SubResource("StandardMaterial3D_t3ali")
