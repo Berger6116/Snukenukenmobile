@@ -151,9 +151,10 @@ func _on_comprar_powerup() -> void:
 
 func _on_ver_ad_por_diamantes() -> void:
 	btn_ad_diamantes.disabled = true
-	await AdManagerSingleton.create_reward_ad("Obtener +20 Diamantes")
-	MetaProgression.agregar_diamantes(20)
-	lbl_feedback.text = "¡Recibiste +20 Diamantes por ver el anuncio!"
+	var ok := await AdManagerSingleton.create_reward_ad("Obtener +20 Diamantes")
+	if ok:
+		MetaProgression.agregar_diamantes(20)
+		lbl_feedback.text = "¡Recibiste +20 Diamantes por ver el anuncio!"
 	btn_ad_diamantes.disabled = false
 	refrescar_ui()
 
@@ -165,6 +166,7 @@ func _on_comprar_pack_diamantes() -> void:
 func _on_continuar_con_anuncio() -> void:
 	btn_continuar_ad.disabled = true
 	lbl_feedback.text = "Cargando anuncio para iniciar Nivel %d..." % MetaProgression.nivel_actual
-	await AdManagerSingleton.create_reward_ad("Continuar a Partida Nivel %d" % MetaProgression.nivel_actual)
+	var ok := await AdManagerSingleton.create_reward_ad("Continuar a Partida Nivel %d" % MetaProgression.nivel_actual)
 	btn_continuar_ad.disabled = false
-	continuar_a_partida.emit()
+	if ok:
+		continuar_a_partida.emit()

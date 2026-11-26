@@ -59,10 +59,10 @@ func _spawn_con_respawn(fabrica: Fabrica, punto: Node3D, tiempo_cooldown: float)
 
 func _on_item_consumido(fabrica: Fabrica, punto: Node3D, tiempo_cooldown: float) -> void:
 	_items_activos.erase(punto)
-	if not is_inside_tree():
+	if not is_inside_tree() or is_queued_for_deletion():
 		return
 	await get_tree().create_timer(tiempo_cooldown).timeout
-	if is_inside_tree():
+	if is_inside_tree() and not is_queued_for_deletion():
 		_spawn_con_respawn(fabrica, punto, tiempo_cooldown)
 
 func punto_esta_ocupado(punto: Node3D) -> bool:

@@ -270,10 +270,10 @@ func _calcular_y_con_gravedad_y_salto(body: CharacterBody3D, seg: Node3D, pos_ca
 
 ## Obtiene o crea el Node3D dedicado donde residen todos los eslabones
 func _obtener_contenedor(body: CharacterBody3D) -> Node3D:
-	if is_instance_valid(contenedor_personalizado):
+	if is_instance_valid(contenedor_personalizado) and not contenedor_personalizado.is_queued_for_deletion():
 		return contenedor_personalizado
 	
-	if is_instance_valid(_nodo_contenedor):
+	if is_instance_valid(_nodo_contenedor) and not _nodo_contenedor.is_queued_for_deletion():
 		return _nodo_contenedor
 	
 	if not is_instance_valid(_padre_mundo):
@@ -285,10 +285,10 @@ func _obtener_contenedor(body: CharacterBody3D) -> Node3D:
 	if not is_instance_valid(_padre_mundo):
 		return null
 	
-	# Buscar si ya existe un contenedor previo para este body en la escena
+	# Buscar si ya existe un contenedor previo vivo (y no marcado para borrarse) para este body en la escena
 	var nombre_contenedor := body.name + "_SnakeBody"
 	var existente = _padre_mundo.get_node_or_null(nombre_contenedor)
-	if is_instance_valid(existente):
+	if is_instance_valid(existente) and not existente.is_queued_for_deletion():
 		_nodo_contenedor = existente
 		return _nodo_contenedor
 	
@@ -345,18 +345,16 @@ func agregar_cuerpo(body: CharacterBody3D) -> Node3D:
 
 ## Elimina el último cuerpo intermedio antes de la cola (si existe).
 func quitar_cuerpo() -> bool:
-	if _cuerpos.is_empty():
-		return false
-	
-	var ultimo: Node3D = _cuerpos.pop_back() as Node3D
-	_cache_sucia = true
-	if is_instance_valid(ultimo):
-		_velocidades_y.erase(ultimo.get_instance_id())
-		ultimo.queue_free()
-	
-	cuerpo_eliminado.emit(_cuerpos.size())
-	cantidad_segmentos_cambiada.emit(obtener_cantidad_segmentos())
-	return true
+	while not _cuerpos.is_empty():
+		var ultimo = _cuerpos.pop_back()
+		_cache_sucia = true
+		if is_instance_valid(ultimo):
+			_velocidades_y.erase(ultimo.get_instance_id())
+			ultimo.queue_free()
+			cuerpo_eliminado.emit(_cuerpos.size())
+			cantidad_segmentos_cambiada.emit(obtener_cantidad_segmentos())
+			return true
+	return false
 
 
 ## Retorna directamente la cantidad de cuerpos intermedios sin duplicar el array
@@ -560,8 +558,11 @@ func limpiar() -> void:
 		_cola = null
 	
 	if _creo_contenedor_propio and is_instance_valid(_nodo_contenedor):
+		if _nodo_contenedor.get_parent():
+			_nodo_contenedor.get_parent().remove_child(_nodo_contenedor)
 		_nodo_contenedor.queue_free()
 		_nodo_contenedor = null
+	_creo_contenedor_propio = false
 	
 	_segmentos_cache.clear()
 	_cache_sucia = true

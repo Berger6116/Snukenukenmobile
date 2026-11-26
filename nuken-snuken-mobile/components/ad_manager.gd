@@ -6,6 +6,7 @@ const AD_ID_REWARD = "ca-app-pub-3940256099942544/5224354917"
 
 var ads_initialized: bool = false
 var _es_dispositivo_movil: bool = false
+var _mostrando_reward_ad: bool = false
 var ad_view_banner: AdView
 var ad_view_reward: RewardedAd
 
@@ -57,8 +58,14 @@ func hide_banner_ad() -> void:
 		ad_view_banner = null
 
 func create_reward_ad(motivo: String = "Recompensa") -> bool:
+	if _mostrando_reward_ad:
+		print("[AdManager] Ya hay un Rewarded Ad en curso, ignorando solicitud duplicada: ", motivo)
+		return false
+	_mostrando_reward_ad = true
+
 	if not _es_dispositivo_movil:
 		await _mostrar_anuncio_simulado_editor(motivo)
+		_mostrando_reward_ad = false
 		on_ad_reward_gained.emit()
 		return true
 
@@ -71,6 +78,7 @@ func create_reward_ad(motivo: String = "Recompensa") -> bool:
 	if not ads_initialized:
 		print("[AdManager] AdMob no inicializó a tiempo, usando fallback.")
 		await _mostrar_anuncio_simulado_editor(motivo)
+		_mostrando_reward_ad = false
 		on_ad_reward_gained.emit()
 		return true
 
@@ -100,7 +108,6 @@ func create_reward_ad(motivo: String = "Recompensa") -> bool:
 		var on_user_earned_reward_listener := OnUserEarnedRewardListener.new()
 		on_user_earned_reward_listener.on_user_earned_reward = func(_reward) -> void:
 			recompensa_obtenida = true
-			on_ad_reward_gained.emit()
 		new_rewarded_ad.show(on_user_earned_reward_listener)
 
 	RewardedAdLoader.new().load(AD_ID_REWARD, AdRequest.new(), rewarded_ad_load_callback)
@@ -110,6 +117,7 @@ func create_reward_ad(motivo: String = "Recompensa") -> bool:
 		await get_tree().create_timer(0.2).timeout
 		tiempo_espera += 0.2
 
+	_mostrando_reward_ad = false
 	if recompensa_obtenida:
 		on_ad_reward_gained.emit()
 	return recompensa_obtenida

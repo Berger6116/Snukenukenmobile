@@ -46,13 +46,22 @@ func _ready() -> void:
 
 	if not GestorDeDatosPjs.meta_huevos_alcanzada.is_connected(_on_meta_huevos_alcanzada):
 		GestorDeDatosPjs.meta_huevos_alcanzada.connect(_on_meta_huevos_alcanzada)
+	if not GestorDeDatosPjs.jugador_murio.is_connected(_on_jugador_murio):
+		GestorDeDatosPjs.jugador_murio.connect(_on_jugador_murio)
 
 	_iniciar_partida_local()
+
+func _exit_tree() -> void:
+	if is_instance_valid(GestorDeDatosPjs):
+		if GestorDeDatosPjs.meta_huevos_alcanzada.is_connected(_on_meta_huevos_alcanzada):
+			GestorDeDatosPjs.meta_huevos_alcanzada.disconnect(_on_meta_huevos_alcanzada)
+		if GestorDeDatosPjs.jugador_murio.is_connected(_on_jugador_murio):
+			GestorDeDatosPjs.jugador_murio.disconnect(_on_jugador_murio)
 
 func _process(delta: float) -> void:
 	if not _partida_activa:
 		return
-	if not is_instance_valid(_jugador_actual) or _jugador_actual.esta_muerto:
+	if not is_instance_valid(_jugador_actual):
 		return
 
 	_tiempo_restante -= delta
@@ -61,12 +70,20 @@ func _process(delta: float) -> void:
 	if _tiempo_restante <= 0.0:
 		_tiempo_restante = 0.0
 		_partida_activa = false
-		_jugador_actual.esta_muerto = true
+		_destruir_jugador_actual()
 		mostrar_lobby_respawn("tiempo")
+
+func _on_jugador_murio(id: int) -> void:
+	if id != 1 or not _partida_activa:
+		return
+	_partida_activa = false
+	_destruir_jugador_actual()
+	mostrar_lobby_respawn("vida")
 
 func _iniciar_partida_local() -> void:
 	_revives_ad_usados = 0
 	_invitacion_usada_en_partida = false
+	GestorDeDatosPjs.jugadores_invulnerables.erase(1)
 	var nivel: int = MetaProgression.nivel_actual if is_instance_valid(MetaProgression) else 1
 	_tiempo_restante = MetaProgression.obtener_tiempo_limite(nivel) if is_instance_valid(MetaProgression) else 60.0
 
@@ -88,18 +105,37 @@ func _verificar_mapa_nivel(nivel: int) -> void:
 	var ruta_mapa := MetaProgression.obtener_ruta_mapa_nivel(nivel)
 	print("[World] Iniciando PARTIDA NIVEL %d con mapa: %s" % [nivel, ruta_mapa])
 
-func _spawn_player(peer_id: int) -> void:
+func _destruir_jugador_actual() -> void:
+	GestorDeObjetos.eliminar_PJ(1)
+	if is_instance_valid(_jugador_actual):
+		if _jugador_actual.camera:
+			_jugador_actual.camera.current = false
+		if _jugador_actual.snake_component and _jugador_actual.snake_component is MPSnakeBodyComponent3D:
+			_jugador_actual.snake_component.limpiar()
+		if _jugador_actual.get_parent():
+			_jugador_actual.get_parent().remove_child(_jugador_actual)
+		_jugador_actual.queue_free()
+	_jugador_actual = null
+
 	for child in players_container.get_children():
+		if child is Player_MP and child.snake_component and child.snake_component is MPSnakeBodyComponent3D:
+			child.snake_component.limpiar()
+		players_container.remove_child(child)
 		child.queue_free()
+
+func _spawn_player(peer_id: int, registrar_datos: bool = true) -> void:
+	_destruir_jugador_actual()
 
 	var player_instance := PLAYER_SCENE.instantiate() as Player_MP
 	player_instance.name = str(peer_id)
+	player_instance.id_jugador = peer_id
 	player_instance.modo_Singleplayer = true
 	players_container.add_child(player_instance)
 	player_instance.global_position = $SpawnPos.global_position
 	_jugador_actual = player_instance
 
-	GestorDeDatosPjs.registrar_jugador(peer_id)
+	if registrar_datos:
+		GestorDeDatosPjs.registrar_jugador(peer_id)
 
 func _aplicar_powerup_equipado_inicio() -> void:
 	if not is_instance_valid(MetaProgression) or not is_instance_valid(_jugador_actual):
@@ -286,7 +322,16 @@ func _on_revivir_con_ad_pressed() -> void:
 	if _revives_ad_usados >= MetaProgression.MAX_REVIVES_CON_AD:
 		return
 	_btn_revivir_ad.disabled = true
-	await AdManagerSingleton.create_reward_ad("Revivir en Nivel %d" % MetaProgression.nivel_actual)
+	_btn_revivir_diamantes.disabled = true
+	_btn_invitacion_powerup.disabled = true
+	_btn_ir_fin_partida.disabled = true
+	var ok := await AdManagerSingleton.create_reward_ad("Revivir en Nivel %d" % MetaProgression.nivel_actual)
+	if not is_inside_tree():
+		return
+	if not ok:
+		_btn_ir_fin_partida.disabled = false
+		_actualizar_botones_respawn()
+		return
 	_revives_ad_usados += 1
 	_ejecutar_revivir()
 
@@ -297,11 +342,15 @@ func _on_revivir_con_diamantes_pressed() -> void:
 
 func _ejecutar_revivir() -> void:
 	ocultar_lobby_respawn()
+	_btn_ir_fin_partida.disabled = false
 	if _tiempo_restante <= 5.0:
 		_tiempo_restante += 30.0
 	GestorDeDatosPjs.actualizar_tiempo_nivel(_tiempo_restante)
-	if is_instance_valid(_jugador_actual):
-		_jugador_actual.respawnear_en_servidor($SpawnPos.global_position)
+	GestorDeDatosPjs.jugadores_invulnerables.erase(1)
+	GestorDeDatosPjs.restaurar_vida_respawn(1)
+	_spawn_player(1, false)
+	# Otorgar 3 segundos de invulnerabilidad tras revivir para no morir de inmediato
+	GestorDeDatosPjs.activar_invulnerabilidad(1, 3.0)
 	_partida_activa = true
 
 func _on_invitacion_powerup_pressed() -> void:
@@ -318,7 +367,9 @@ func _on_meta_huevos_alcanzada() -> void:
 		return
 	_partida_activa = false
 	if is_instance_valid(_jugador_actual):
-		_jugador_actual.velocity = Vector3.ZERO
+		await _jugador_actual.reproducir_animacion_victoria()
+	if not is_inside_tree():
+		return
 	_mostrar_panel_fin_partida(true)
 
 func _mostrar_panel_fin_partida(es_victoria: bool, mensaje_extra: String = "") -> void:
@@ -350,19 +401,37 @@ func _mostrar_panel_fin_partida(es_victoria: bool, mensaje_extra: String = "") -
 		_btn_ad_gratis_powerup.text = "1) VER ANUNCIO (VERSIÓN GRATIS)  ->  RECOMPENSA = POWERUP"
 		_btn_ad_gratis_powerup.pressed.connect(func():
 			_btn_ad_gratis_powerup.disabled = true
-			await AdManagerSingleton.create_reward_ad("Fin de Partida - Recompensa PowerUp")
-			var pw_nombre := MetaProgression.otorgar_powerup_aleatorio()
-			_lbl_fin_resumen.text = "¡Recibiste PowerUp: %s!\nItems recolectados: %d -> +%d Diamantes" % [pw_nombre, huevos, diamantes_base]
-			_btn_ad_gratis_powerup.text = "RECOMPENSA POWERUP OBTENIDA (%s)" % pw_nombre
+			_btn_ad_x2_diamantes.disabled = true
+			_btn_saltar_o_menu.disabled = true
+			var ok := await AdManagerSingleton.create_reward_ad("Fin de Partida - Recompensa PowerUp")
+			if not is_inside_tree():
+				return
+			if ok:
+				var pw_nombre := MetaProgression.otorgar_powerup_aleatorio()
+				_lbl_fin_resumen.text = "¡Recibiste PowerUp: %s!\nItems recolectados: %d -> +%d Diamantes" % [pw_nombre, huevos, diamantes_base]
+				_btn_ad_gratis_powerup.text = "RECOMPENSA POWERUP OBTENIDA (%s)" % pw_nombre
+			else:
+				_btn_ad_gratis_powerup.disabled = false
+			_btn_ad_x2_diamantes.disabled = false
+			_btn_saltar_o_menu.disabled = false
 		)
 
 		_btn_ad_x2_diamantes.visible = true
 		_btn_ad_x2_diamantes.disabled = false
 		_btn_ad_x2_diamantes.text = "2) VER ANUNCIO PARA DESBLOQUEAR RECOMPENSA x2 (+%d DIAMANTES) -> NIVEL %d" % [diamantes_x2, nivel + 1]
 		_btn_ad_x2_diamantes.pressed.connect(func():
+			var pw_ya_reclamado := _btn_ad_gratis_powerup.disabled
+			_btn_ad_gratis_powerup.disabled = true
 			_btn_ad_x2_diamantes.disabled = true
 			_btn_saltar_o_menu.disabled = true
-			await AdManagerSingleton.create_reward_ad("Recompensa x2 Diamantes")
+			var ok := await AdManagerSingleton.create_reward_ad("Recompensa x2 Diamantes")
+			if not is_inside_tree():
+				return
+			if not ok:
+				_btn_ad_gratis_powerup.disabled = pw_ya_reclamado
+				_btn_ad_x2_diamantes.disabled = false
+				_btn_saltar_o_menu.disabled = false
+				return
 			MetaProgression.agregar_diamantes(diamantes_x2)
 			MetaProgression.avanzar_siguiente_nivel()
 			_cargar_siguiente_nivel()
@@ -372,6 +441,9 @@ func _mostrar_panel_fin_partida(es_victoria: bool, mensaje_extra: String = "") -
 		_btn_saltar_o_menu.disabled = false
 		_btn_saltar_o_menu.text = "SALTAR (Reclamar +%d Diamantes e ir a PARTIDA NIVEL %d)" % [diamantes_base, nivel + 1]
 		_btn_saltar_o_menu.pressed.connect(func():
+			_btn_ad_gratis_powerup.disabled = true
+			_btn_ad_x2_diamantes.disabled = true
+			_btn_saltar_o_menu.disabled = true
 			MetaProgression.agregar_diamantes(diamantes_base)
 			MetaProgression.avanzar_siguiente_nivel()
 			_cargar_siguiente_nivel()
@@ -391,7 +463,13 @@ func _mostrar_panel_fin_partida(es_victoria: bool, mensaje_extra: String = "") -
 		_btn_ad_x2_diamantes.pressed.connect(func():
 			_btn_ad_x2_diamantes.disabled = true
 			_btn_saltar_o_menu.disabled = true
-			await AdManagerSingleton.create_reward_ad("Duplicar Diamantes x2")
+			var ok := await AdManagerSingleton.create_reward_ad("Duplicar Diamantes x2")
+			if not is_inside_tree():
+				return
+			if not ok:
+				_btn_ad_x2_diamantes.disabled = false
+				_btn_saltar_o_menu.disabled = false
+				return
 			MetaProgression.agregar_diamantes(diamantes_x2)
 			_volver_a_menu_inicial()
 		)
@@ -400,31 +478,41 @@ func _mostrar_panel_fin_partida(es_victoria: bool, mensaje_extra: String = "") -
 		_btn_saltar_o_menu.disabled = false
 		_btn_saltar_o_menu.text = "VA A MENÚ INICIAL (Reclamar +%d Diamantes)" % diamantes_base
 		_btn_saltar_o_menu.pressed.connect(func():
+			_btn_ad_x2_diamantes.disabled = true
+			_btn_saltar_o_menu.disabled = true
 			MetaProgression.agregar_diamantes(diamantes_base)
 			_volver_a_menu_inicial()
 		)
 
+func _obtener_game_manager() -> Node:
+	if get_parent() and get_parent().has_node("MenuUI") and "maquina_estados" in get_parent():
+		return get_parent()
+	if get_tree() and get_tree().current_scene and get_tree().current_scene.has_node("MenuUI") and "maquina_estados" in get_tree().current_scene:
+		return get_tree().current_scene
+	return null
+
 func _cargar_siguiente_nivel() -> void:
 	_panel_fin_partida.visible = false
-	if camera1:
-		camera1.current = false
-	for child in $ItemsSpawnPath.get_children():
-		child.queue_free()
-	_iniciar_partida_local()
+	ocultar_lobby_respawn()
+	_destruir_jugador_actual()
+	GestorDeDatosPjs.jugadores_invulnerables.clear()
+	GestorDeObjetos.lista_objetos_por_jugador.clear()
+
+	var gm := _obtener_game_manager()
+	if gm and gm.maquina_estados:
+		gm.maquina_estados.change_state(gm.maquina_estados.jugando_local)
+	else:
+		get_tree().reload_current_scene()
 
 func _volver_a_menu_inicial() -> void:
 	_panel_fin_partida.visible = false
 	ocultar_lobby_respawn()
+	_destruir_jugador_actual()
 	GestorDeDatosPjs.jugadores.clear()
 	GestorDeDatosPjs.jugadores_invulnerables.clear()
 	GestorDeObjetos.lista_objetos_por_jugador.clear()
 
-	var gm: Node = null
-	if get_parent() and get_parent().has_node("MenuUI") and "maquina_estados" in get_parent():
-		gm = get_parent()
-	elif get_tree().current_scene and get_tree().current_scene.has_node("MenuUI") and "maquina_estados" in get_tree().current_scene:
-		gm = get_tree().current_scene
-
+	var gm := _obtener_game_manager()
 	if gm and gm.maquina_estados:
 		gm.maquina_estados.change_state(gm.maquina_estados.en_menu)
 	else:

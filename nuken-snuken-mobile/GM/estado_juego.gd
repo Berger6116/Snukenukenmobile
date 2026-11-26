@@ -13,8 +13,12 @@ func enter(juego) -> void:
 func update(_juego, _delta) -> void:
 	pass
 
-func exit(_juego) -> void:
+func exit(juego) -> void:
 	print("--- SALIENDO DEL NIVEL ---")
 	if is_instance_valid(nivel_actual):
+		if nivel_actual.get_parent() == juego:
+			juego.remove_child(nivel_actual)
+		elif nivel_actual.get_parent():
+			nivel_actual.get_parent().remove_child(nivel_actual)
 		nivel_actual.queue_free()
 		nivel_actual = null
