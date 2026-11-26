@@ -13,8 +13,6 @@
 [ext_resource type="FontFile" uid="uid://be7icuirs7tmo" path="res://Recursos/Metal Lord.otf" id="10_w51pj"]
 [ext_resource type="Resource" path="res://Prefabs/01-Resources/LimitedAngleRotation.tres" id="11_limit"]
 [ext_resource type="Script" uid="uid://brg8voa8x6ldh" path="res://Scripts/camera_follow.gd" id="11_w51pj"]
-[ext_resource type="PackedScene" uid="uid://c4dupjt5b17h7" path="res://Models/Items/banana_2.tscn" id="13_vnhcj"]
-[ext_resource type="PackedScene" uid="uid://dpbhduqdnipi6" path="res://Models/Items/frutilla_3.tscn" id="14_ua126"]
 [ext_resource type="PackedScene" uid="uid://bmq2cgww526gs" path="res://Prefabs/15-NPC/lengua.tscn" id="15_lengua"]
 [ext_resource type="PackedScene" uid="uid://cnhaqedchwhr4" path="res://Prefabs/12-Players/corona.tscn" id="16_corona"]
 [ext_resource type="PackedScene" uid="uid://c6qjyko8pgxxg" path="res://Prefabs/14-Factory/Items/Huevo_Violeta.tscn" id="17_huevo"]
@@ -39,95 +37,9 @@ metadata/_custom_type_script = "uid://dnq7d7t577c2h"
 height = 2.13125
 radius = 0.6
 
-[sub_resource type="Animation" id="Animation_8ajal"]
-resource_name = "GIRAR"
-length = 5.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 2.8, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_13abc"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -0.2, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_nrddq"]
-_data = {
-&"GIRAR": SubResource("Animation_8ajal"),
-&"RESET": SubResource("Animation_13abc")
-}
-
 [sub_resource type="Animation" id="Animation_gm2oi"]
 resource_name = "IDLE"
 length = 2.0850000000000004
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -571,7 +483,6 @@ tracks/21/keys = {
 [sub_resource type="Animation" id="Animation_24sng"]
 resource_name = "idle2"
 length = 7.0
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -672,7 +583,6 @@ tracks/7/keys = {
 [sub_resource type="Animation" id="Animation_2urg3"]
 resource_name = "idle2_2"
 length = 7.0
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -773,7 +683,6 @@ tracks/7/keys = {
 [sub_resource type="Animation" id="Animation_8ud1q"]
 resource_name = "victoria"
 length = 5.0
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -986,22 +895,6 @@ light_specular = 1.0
 distance_fade_enabled = true
 distance_fade_begin = 35.0
 omni_range = 6.0
-
-[node name="Node3D" type="Node3D" parent="." unique_id=23536662]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
-visible = false
-
-[node name="banana2" parent="Node3D" unique_id=651548182 instance=ExtResource("13_vnhcj")]
-transform = Transform3D(-0.12054871, -1.0538702e-08, 0, 1.0538702e-08, -0.12054871, 0, 0, 0, 0.12054871, 0.4, 0.60000014, 0.1288197)
-
-[node name="banana3" parent="Node3D" unique_id=1359201575 instance=ExtResource("13_vnhcj")]
-transform = Transform3D(0.12054872, 0, 0, 0, 0.12054869, 0, 0, 0, 0.1205487, -0.40000004, -0.099999905, 0.1288197)
-
-[node name="frutilla3" parent="Node3D" unique_id=895847708 instance=ExtResource("14_ua126")]
-transform = Transform3D(0.09643896, 0, 0, 0, 0.09643896, 0, 0, 0, 0.09643896, 0, 0, -0.2711803)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D" unique_id=1426448601]
-libraries/ = SubResource("AnimationLibrary_nrddq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=98835650]
 libraries/ = SubResource("AnimationLibrary_8ajal")

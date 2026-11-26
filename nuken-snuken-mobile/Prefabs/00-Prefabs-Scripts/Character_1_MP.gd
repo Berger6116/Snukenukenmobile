@@ -128,8 +128,8 @@ func quitar_cuerpo(cant: int = 1) -> void:
 	_ejecutar_animacion_danio_local()
 
 func _reproducir_idle() -> void:
-	if anim_player and anim_player.has_animation("IDLE"):
-		anim_player.play("IDLE")
+	if anim_player and anim_player.has_animation("Idle2_2"):
+		anim_player.play("Idle2_2")
 
 func _ejecutar_animacion_danio_local() -> void:
 	if not anim_player or not anim_player.has_animation("RECIBE_DANIO"):
