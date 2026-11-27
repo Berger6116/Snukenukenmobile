@@ -13,98 +13,98 @@ El sistema combina tres patrones de diseño:
 
 ```mermaid
 classDiagram
-    direction TB
+	direction TB
 
-    class Node3D
-    class Area3D
-    class Resource
+	class Node3D
+	class Area3D
+	class Resource
 
-    Node3D <|-- FabricaAbstracta
-    FabricaAbstracta <|-- Fabrica
-    Node3D <|-- RepartidorItems
-    Area3D <|-- ItemWorld
-    Resource <|-- ItemData
-    Node3D <|-- ItemVisual
-    ItemVisual <|-- Huevo
+	Node3D <|-- FabricaAbstracta
+	FabricaAbstracta <|-- Fabrica
+	Node3D <|-- RepartidorItems
+	Area3D <|-- ItemWorld
+	Resource <|-- ItemData
+	Node3D <|-- ItemVisual
+	ItemVisual <|-- Huevo
 
-    class FabricaAbstracta {
-        <<abstract>>
-        +Node3D spawn_path
-        +PackedScene escena_base_item
-        +obtener_item_data()* ItemData
-        +fabricar() ItemWorld
-        +spawn_en_pos(Vector3 posicion) ItemWorld
-        +spawn_en_nodo(Node3D nodo) ItemWorld
-    }
+	class FabricaAbstracta {
+		<<abstract>>
+		+Node3D spawn_path
+		+PackedScene escena_base_item
+		+obtener_item_data()* ItemData
+		+fabricar() ItemWorld
+		+spawn_en_pos(Vector3 posicion) ItemWorld
+		+spawn_en_nodo(Node3D nodo) ItemWorld
+	}
 
-    class Fabrica {
-        +ItemData item_data
-        +obtener_item_data() ItemData
-    }
+	class Fabrica {
+		+ItemData item_data
+		+obtener_item_data() ItemData
+	}
 
-    class RepartidorItems {
-        +Fabrica Fabrica1
-        +Array~Node3D~ Fabrica1_Spawns
-        +float tiempo_respawn_Fabrica1
-        +Fabrica Fabrica2
-        +Array~Node3D~ Fabrica2_Spawns
-        +float tiempo_respawn_Fabrica2
-        +Fabrica Fabrica3
-        +Array~Node3D~ Fabrica3_Spawns
-        +float tiempo_respawn_Fabrica3
-        -Dictionary _items_activos
-        +limpiar_previsualizaciones_editor() void
-        +generar_todos_los_items() void
-        +llenar_usando(Fabrica f, Array spawns, float t) void
-        -_spawn_con_respawn(Fabrica f, Node3D p, float t) void
-        -_on_item_consumido(Fabrica f, Node3D p, float t) void
-        +punto_esta_ocupado(Node3D punto) bool
-    }
+	class RepartidorItems {
+		+Fabrica Fabrica1
+		+Array~Node3D~ Fabrica1_Spawns
+		+float tiempo_respawn_Fabrica1
+		+Fabrica Fabrica2
+		+Array~Node3D~ Fabrica2_Spawns
+		+float tiempo_respawn_Fabrica2
+		+Fabrica Fabrica3
+		+Array~Node3D~ Fabrica3_Spawns
+		+float tiempo_respawn_Fabrica3
+		-Dictionary _items_activos
+		+limpiar_previsualizaciones_editor() void
+		+generar_todos_los_items() void
+		+llenar_usando(Fabrica f, Array spawns, float t) void
+		-_spawn_con_respawn(Fabrica f, Node3D p, float t) void
+		-_on_item_consumido(Fabrica f, Node3D p, float t) void
+		+punto_esta_ocupado(Node3D punto) bool
+	}
 
-    class ItemData {
-        +String nombre
-        +PackedScene modelo_escena
-        +Mesh modelo_mesh
-        +Material material_override
-        +Vector3 escala_visual
-        +int puntos
-        +float cura_vida
-        +aplicar_efecto(Node3D actor) void
-    }
+	class ItemData {
+		+String nombre
+		+PackedScene modelo_escena
+		+Mesh modelo_mesh
+		+Material material_override
+		+Vector3 escala_visual
+		+int puntos
+		+float cura_vida
+		+aplicar_efecto(Node3D actor) void
+	}
 
-    class ItemWorld {
-        +String data_path
-        +ItemData data
-        +MeshInstance3D mesh_instance
-        +CollisionShape3D collision_shape
-        -Node3D _instancia_escena
-        +_ready() void
-        -_actualizar_visuales() void
-        -_on_body_entered(Node3D body) void
-        +despawn() void
-        +rpc_animacion_consumir() void
-    }
+	class ItemWorld {
+		+String data_path
+		+ItemData data
+		+MeshInstance3D mesh_instance
+		+CollisionShape3D collision_shape
+		-Node3D _instancia_escena
+		+_ready() void
+		-_actualizar_visuales() void
+		-_on_body_entered(Node3D body) void
+		+despawn() void
+		+rpc_animacion_consumir() void
+	}
 
-    class ItemVisual {
-        <<abstract>>
-        +despawn_animation_play()* void
-    }
+	class ItemVisual {
+		<<abstract>>
+		+despawn_animation_play()* void
+	}
 
-    class Huevo {
-        +MeshInstance3D huevomodel
-        +MeshInstance3D pintas
-        +AnimationPlayer animation_player
-        +_ready() void
-        -_hacer_materiales_unicos() void
-        +despawn_animation_play() void
-    }
+	class Huevo {
+		+MeshInstance3D huevomodel
+		+MeshInstance3D pintas
+		+AnimationPlayer animation_player
+		+_ready() void
+		-_hacer_materiales_unicos() void
+		+despawn_animation_play() void
+	}
 
-    RepartidorItems o-- Fabrica : coordina
-    RepartidorItems o-- ItemWorld : monitorea ciclo de vida
-    Fabrica o-- ItemData : almacena receta
-    Fabrica ..> ItemWorld : crea y ensambla
-    ItemWorld *-- ItemData : data inyectada
-    ItemWorld o-- ItemVisual : instancia visual hija
+	RepartidorItems o-- Fabrica : coordina
+	RepartidorItems o-- ItemWorld : monitorea ciclo de vida
+	Fabrica o-- ItemData : almacena receta
+	Fabrica ..> ItemWorld : crea y ensambla
+	ItemWorld *-- ItemData : data inyectada
+	ItemWorld o-- ItemVisual : instancia visual hija
 ```
 
 ---
@@ -115,32 +115,32 @@ Muestra el flujo desde que el Servidor decide colocar un ítem hasta que todos l
 
 ```mermaid
 sequenceDiagram
-    autonumber
-    participant Repartidor as RepartidorItems (Servidor)
-    participant Fabrica as Fabrica (Servidor)
-    participant ItemServidor as ItemWorld (Servidor)
-    participant Spawner as MultiplayerSpawner (ItemsSpawnPath)
-    participant Cliente as Cliente (Remoto)
-    participant ItemCliente as ItemWorld (Cliente)
+	autonumber
+	participant Repartidor as RepartidorItems (Servidor)
+	participant Fabrica as Fabrica (Servidor)
+	participant ItemServidor as ItemWorld (Servidor)
+	participant Spawner as MultiplayerSpawner (ItemsSpawnPath)
+	participant Cliente as Cliente (Remoto)
+	participant ItemCliente as ItemWorld (Cliente)
 
-    Note over Repartidor,Cliente: 1. Inicio de Partida (Host conectado)
-    Repartidor->>Fabrica: spawn_en_pos(posicion)
-    Fabrica->>Fabrica: fabricar() (Instancia Item.tscn)
-    Fabrica->>ItemServidor: Asigna data e inyecta data_path = "res://...tres"
-    Fabrica->>Spawner: destino.add_child(item, true)
-    Fabrica->>ItemServidor: global_position = posicion
+	Note over Repartidor,Cliente: 1. Inicio de Partida (Host conectado)
+	Repartidor->>Fabrica: spawn_en_pos(posicion)
+	Fabrica->>Fabrica: fabricar() (Instancia Item.tscn)
+	Fabrica->>ItemServidor: Asigna data e inyecta data_path = "res://...tres"
+	Fabrica->>Spawner: destino.add_child(item, true)
+	Fabrica->>ItemServidor: global_position = posicion
 
-    Note over Spawner,Cliente: 2. Replicación Automática de Red
-    Spawner-->>Cliente: Paquete de Spawn (instanciar Item.tscn con mismo nombre)
-    Cliente->>ItemCliente: Instancia Item.tscn en ItemsSpawnPath
+	Note over Spawner,Cliente: 2. Replicación Automática de Red
+	Spawner-->>Cliente: Paquete de Spawn (instanciar Item.tscn con mismo nombre)
+	Cliente->>ItemCliente: Instancia Item.tscn en ItemsSpawnPath
 
-    Note over ItemServidor,ItemCliente: 3. Sincronización de Propiedades
-    ItemServidor-->>ItemCliente: MultiplayerSynchronizer envía data_path y position
-    ItemCliente->>ItemCliente: Setter data_path recibe ruta
-    ItemCliente->>ItemCliente: data = load(data_path)
-    ItemCliente->>ItemCliente: _actualizar_visuales()
-    ItemCliente->>ItemCliente: Instancia modelo_escena (Huevo) como hijo
-    ItemCliente->>ItemCliente: Huevo._hacer_materiales_unicos() (Duplica StandardMaterial3D)
+	Note over ItemServidor,ItemCliente: 3. Sincronización de Propiedades
+	ItemServidor-->>ItemCliente: MultiplayerSynchronizer envía data_path y position
+	ItemCliente->>ItemCliente: Setter data_path recibe ruta
+	ItemCliente->>ItemCliente: data = load(data_path)
+	ItemCliente->>ItemCliente: _actualizar_visuales()
+	ItemCliente->>ItemCliente: Instancia modelo_escena (Huevo) como hijo
+	ItemCliente->>ItemCliente: Huevo._hacer_materiales_unicos() (Duplica StandardMaterial3D)
 ```
 
 ---
@@ -151,47 +151,47 @@ Ilustra cómo se procesa la física con autoridad de servidor, se despacha la an
 
 ```mermaid
 sequenceDiagram
-    autonumber
-    participant Jugador as Jugador (Cuerpo 3D)
-    participant ItemServidor as ItemWorld (Servidor)
-    participant ItemData as ItemData
-    participant GestorPjs as GestorDeDatosPjs
-    participant Cliente as Cliente (Remoto)
-    participant VisualLocal as ItemVisual (Servidor)
-    participant VisualCliente as ItemVisual (Cliente)
+	autonumber
+	participant Jugador as Jugador (Cuerpo 3D)
+	participant ItemServidor as ItemWorld (Servidor)
+	participant ItemData as ItemData
+	participant GestorPjs as GestorDeDatosPjs
+	participant Cliente as Cliente (Remoto)
+	participant VisualLocal as ItemVisual (Servidor)
+	participant VisualCliente as ItemVisual (Cliente)
 
-    Jugador->>ItemServidor: Colisión (body_entered)
-    
-    rect rgb(240, 248, 255)
-        Note over ItemServidor: Verificación de Autoridad
-        ItemServidor->>ItemServidor: is_multiplayer_server()? SÍ
-        ItemServidor->>ItemServidor: body.is_in_group("Jugador")? SÍ
-    end
+	Jugador->>ItemServidor: Colisión (body_entered)
+	
+	rect rgb(240, 248, 255)
+		Note over ItemServidor: Verificación de Autoridad
+		ItemServidor->>ItemServidor: is_multiplayer_server()? SÍ
+		ItemServidor->>ItemServidor: body.is_in_group("Jugador")? SÍ
+	end
 
-    Note over ItemServidor,GestorPjs: Aplicación del Efecto en Servidor
-    ItemServidor->>ItemData: aplicar_efecto(Jugador)
-    ItemData->>GestorPjs: modificar_puntaje / modificar_vida
-    alt Jugador es serpiente
-        ItemData->>Jugador: agregar_cuerpo()
-    end
+	Note over ItemServidor,GestorPjs: Aplicación del Efecto en Servidor
+	ItemServidor->>ItemData: aplicar_efecto(Jugador)
+	ItemData->>GestorPjs: modificar_puntaje / modificar_vida
+	alt Jugador es serpiente
+		ItemData->>Jugador: agregar_cuerpo()
+	end
 
-    Note over ItemServidor: Inicio de Secuencia Despawn
-    ItemServidor->>ItemServidor: collision_shape.set_deferred("disabled", true)
-    
-    ItemServidor->>ItemServidor: rpc_animacion_consumir() (Local)
-    ItemServidor-->>Cliente: RPC rpc_animacion_consumir() (Red)
+	Note over ItemServidor: Inicio de Secuencia Despawn
+	ItemServidor->>ItemServidor: collision_shape.set_deferred("disabled", true)
+	
+	ItemServidor->>ItemServidor: rpc_animacion_consumir() (Local)
+	ItemServidor-->>Cliente: RPC rpc_animacion_consumir() (Red)
 
-    par Animación en Servidor
-        ItemServidor->>VisualLocal: despawn_animation_play()
-        VisualLocal->>VisualLocal: AnimationPlayer.play("consumir")
-    and Animación en Clientes
-        Cliente->>VisualCliente: despawn_animation_play()
-        VisualCliente->>VisualCliente: AnimationPlayer.play("consumir")
-    end
+	par Animación en Servidor
+		ItemServidor->>VisualLocal: despawn_animation_play()
+		VisualLocal->>VisualLocal: AnimationPlayer.play("consumir")
+	and Animación en Clientes
+		Cliente->>VisualCliente: despawn_animation_play()
+		VisualCliente->>VisualCliente: AnimationPlayer.play("consumir")
+	end
 
-    Note over ItemServidor: Servidor espera 0.9s (duración animación)
-    ItemServidor->>ItemServidor: queue_free()
-    ItemServidor-->>Cliente: MultiplayerSpawner replica eliminación (queue_free en clientes)
+	Note over ItemServidor: Servidor espera 0.9s (duración animación)
+	ItemServidor->>ItemServidor: queue_free()
+	ItemServidor-->>Cliente: MultiplayerSpawner replica eliminación (queue_free en clientes)
 ```
 
 ---
@@ -202,32 +202,32 @@ Muestra los estados por los que transita cada marcador de spawn administrado por
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Vacio : _ready() / limpiar_previsualizaciones_editor()
-    
-    state Vacio {
-        [*] --> EsperandoPartida
-        EsperandoPartida --> DisponibleParaSpawn : Host inicia partida (generar_todos_los_items)
-    }
+	[*] --> Vacio : _ready() / limpiar_previsualizaciones_editor()
+	
+	state Vacio {
+		[*] --> EsperandoPartida
+		EsperandoPartida --> DisponibleParaSpawn : Host inicia partida (generar_todos_los_items)
+	}
 
-    DisponibleParaSpawn --> ActivoEnMundo : Fabrica.spawn_en_pos()
-    
-    state ActivoEnMundo {
-        [*] --> EsperandoInteraccion
-        EsperandoInteraccion --> Consumido : Jugador toca Area3D (_on_body_entered)
-        Consumido --> DesactivandoColision : Servidor desactiva CollisionShape
-        DesactivandoColision --> AnimandoRPC : rpc_animacion_consumir()
-        AnimandoRPC --> Destruido : await timer(0.9s) -> queue_free()
-    }
+	DisponibleParaSpawn --> ActivoEnMundo : Fabrica.spawn_en_pos()
+	
+	state ActivoEnMundo {
+		[*] --> EsperandoInteraccion
+		EsperandoInteraccion --> Consumido : Jugador toca Area3D (_on_body_entered)
+		Consumido --> DesactivandoColision : Servidor desactiva CollisionShape
+		DesactivandoColision --> AnimandoRPC : rpc_animacion_consumir()
+		AnimandoRPC --> Destruido : await timer(0.9s) -> queue_free()
+	}
 
-    ActivoEnMundo --> CooldownRespawn : Señal tree_exited (CONNECT_ONE_SHOT)
-    
-    state CooldownRespawn {
-        [*] --> Temporizador : await timer(tiempo_cooldown)
-        Temporizador --> ComprobacionServidor : timeout
-        ComprobacionServidor --> [*] : Servidor activo y peer conectado
-    }
+	ActivoEnMundo --> CooldownRespawn : Señal tree_exited (CONNECT_ONE_SHOT)
+	
+	state CooldownRespawn {
+		[*] --> Temporizador : await timer(tiempo_cooldown)
+		Temporizador --> ComprobacionServidor : timeout
+		ComprobacionServidor --> [*] : Servidor activo y peer conectado
+	}
 
-    CooldownRespawn --> ActivoEnMundo : _spawn_con_respawn()
+	CooldownRespawn --> ActivoEnMundo : _spawn_con_respawn()
 ```
 
 ---

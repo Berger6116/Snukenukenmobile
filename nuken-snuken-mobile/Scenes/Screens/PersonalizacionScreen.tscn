@@ -2,7 +2,15 @@
 
 [ext_resource type="Script" uid="uid://bcv21mk1i84c3" path="res://Scenes/Screens/personalizacion_screen.gd" id="1_pers"]
 [ext_resource type="FontFile" uid="uid://be7icuirs7tmo" path="res://Recursos/Metal Lord.otf" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://dciyxcrwiefi4" path="res://art/fondo1.png" id="2_viqup"]
 [ext_resource type="Texture2D" uid="uid://deqs5yfotifwg" path="res://Scenes/Screens/snake5.png" id="3_hxuq4"]
+[ext_resource type="Texture2D" uid="uid://djxpf3jby6aah" path="res://art/caja.png" id="4_8w305"]
+[ext_resource type="Texture2D" uid="uid://b6sc1afmg4gi0" path="res://art/boton de piedra1.png" id="6_en0as"]
+[ext_resource type="Texture2D" uid="uid://cgmqwl26n1rfb" path="res://art/boton3.png" id="6_swqcl"]
+[ext_resource type="Texture2D" uid="uid://dxwky27867ikl" path="res://art/boton3-2.png" id="7_en0as"]
+[ext_resource type="Texture2D" uid="uid://c40k2unyqtxp6" path="res://art/boton de piedra1-2.png" id="7_mq2a0"]
+[ext_resource type="Texture2D" uid="uid://bmmaou3q8re6w" path="res://art/boton 2.png" id="8_mq2a0"]
+[ext_resource type="Texture2D" uid="uid://b52brhq30j0gi" path="res://art/boton de piedra2-2.png" id="9_jnd37"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(0.12, 0.05, 0.24, 0.96)
@@ -23,21 +31,71 @@ corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_red_btn"]
-content_margin_left = 20.0
-content_margin_top = 12.0
-content_margin_right = 20.0
-content_margin_bottom = 12.0
-bg_color = Color(0.85, 0.08, 0.05, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 0.65, 0.55, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y356a"]
+texture = ExtResource("6_en0as")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hxkyk"]
+texture = ExtResource("7_mq2a0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mk21s"]
+texture = ExtResource("6_en0as")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ymuc5"]
+texture = ExtResource("7_mq2a0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qac50"]
+texture = ExtResource("8_mq2a0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uriso"]
+texture = ExtResource("9_jnd37")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0qjl0"]
+texture = ExtResource("6_swqcl")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cw50x"]
+texture = ExtResource("7_en0as")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c7rq6"]
+texture = ExtResource("6_en0as")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tsmh2"]
+texture = ExtResource("7_mq2a0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t0vb3"]
+texture = ExtResource("6_en0as")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6c0pd"]
+texture = ExtResource("7_mq2a0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pg4c8"]
+texture = ExtResource("6_swqcl")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rjrcq"]
+texture = ExtResource("7_en0as")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v0qa2"]
+texture = ExtResource("6_swqcl")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l62gu"]
+texture = ExtResource("7_en0as")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vrthb"]
+texture = ExtResource("6_swqcl")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gosdw"]
+texture = ExtResource("7_en0as")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t3ali"]
+texture = ExtResource("6_en0as")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c0bs7"]
+texture = ExtResource("7_mq2a0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d5t3w"]
+texture = ExtResource("6_swqcl")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u08h4"]
+texture = ExtResource("7_en0as")
 
 [node name="PersonalizacionScreen" type="Control" unique_id=19001001]
 layout_mode = 3
@@ -56,6 +114,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="Fondo1" type="Sprite2D" parent="BgPanel" unique_id=1145030834]
+position = Vector2(644, 369)
+texture = ExtResource("2_viqup")
 
 [node name="Margin" type="MarginContainer" parent="." unique_id=19001003]
 layout_mode = 1
@@ -107,6 +169,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_green_card")
 layout_mode = 2
 alignment = 1
 
+[node name="Caja" type="Sprite2D" parent="Margin/MainVBox/GridCards/CardSkin/VBox" unique_id=1127252618]
+position = Vector2(279, 113)
+texture = ExtResource("4_8w305")
+
 [node name="Title" type="Label" parent="Margin/MainVBox/GridCards/CardSkin/VBox" unique_id=19001011]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_font")
@@ -140,15 +206,21 @@ alignment = 1
 [node name="PrevSkinBtn" type="Button" parent="Margin/MainVBox/GridCards/CardSkin/VBox/NavHBox" unique_id=19001015]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_y356a")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hxkyk")
 text = "< Anterior"
 
 [node name="NextSkinBtn" type="Button" parent="Margin/MainVBox/GridCards/CardSkin/VBox/NavHBox" unique_id=19001016]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_mk21s")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ymuc5")
 text = "Siguiente >"
 
 [node name="ComprarSkinBtn" type="Button" parent="Margin/MainVBox/GridCards/CardSkin/VBox" unique_id=19001017]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_qac50")
+theme_override_styles/hover = SubResource("StyleBoxTexture_uriso")
 text = "EQUIPAR SKIN"
 
 [node name="CardVida" type="PanelContainer" parent="Margin/MainVBox/GridCards" unique_id=19001018]
@@ -156,6 +228,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_green_card")
+
+[node name="Caja" type="Sprite2D" parent="Margin/MainVBox/GridCards/CardVida" unique_id=2007169643]
+position = Vector2(298, 130)
+texture = ExtResource("4_8w305")
 
 [node name="VBox" type="VBoxContainer" parent="Margin/MainVBox/GridCards/CardVida" unique_id=19001019]
 layout_mode = 2
@@ -177,6 +253,8 @@ vertical_alignment = 1
 
 [node name="ComprarVidaBtn" type="Button" parent="Margin/MainVBox/GridCards/CardVida/VBox" unique_id=19001022]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_0qjl0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cw50x")
 text = "MEJORAR VIDA (15 DIAMANTES)"
 
 [node name="CardPowerUp" type="PanelContainer" parent="Margin/MainVBox/GridCards" unique_id=19001023]
@@ -188,6 +266,11 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_green_card")
 [node name="VBox" type="VBoxContainer" parent="Margin/MainVBox/GridCards/CardPowerUp" unique_id=19001024]
 layout_mode = 2
 alignment = 1
+
+[node name="Caja" type="Sprite2D" parent="Margin/MainVBox/GridCards/CardPowerUp/VBox" unique_id=1800854513]
+position = Vector2(274.5, 82.49999)
+scale = Vector2(1.0491526, 0.7254903)
+texture = ExtResource("4_8w305")
 
 [node name="Title" type="Label" parent="Margin/MainVBox/GridCards/CardPowerUp/VBox" unique_id=19001025]
 layout_mode = 2
@@ -210,15 +293,21 @@ alignment = 1
 [node name="PrevPwBtn" type="Button" parent="Margin/MainVBox/GridCards/CardPowerUp/VBox/NavHBox" unique_id=19001028]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_c7rq6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_tsmh2")
 text = "< Anterior"
 
 [node name="NextPwBtn" type="Button" parent="Margin/MainVBox/GridCards/CardPowerUp/VBox/NavHBox" unique_id=19001029]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_t0vb3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6c0pd")
 text = "Siguiente >"
 
 [node name="ComprarPwBtn" type="Button" parent="Margin/MainVBox/GridCards/CardPowerUp/VBox" unique_id=19001030]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_pg4c8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rjrcq")
 text = "COMPRAR Y EQUIPAR"
 
 [node name="CardDiamantes" type="PanelContainer" parent="Margin/MainVBox/GridCards" unique_id=19001031]
@@ -226,6 +315,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_green_card")
+
+[node name="Caja" type="Sprite2D" parent="Margin/MainVBox/GridCards/CardDiamantes" unique_id=416385141]
+position = Vector2(288.5, 95.49999)
+scale = Vector2(1.0491525, 0.7333333)
+texture = ExtResource("4_8w305")
 
 [node name="VBox" type="VBoxContainer" parent="Margin/MainVBox/GridCards/CardDiamantes" unique_id=19001032]
 layout_mode = 2
@@ -248,11 +342,14 @@ autowrap_mode = 2
 
 [node name="AdDiamantesBtn" type="Button" parent="Margin/MainVBox/GridCards/CardDiamantes/VBox" unique_id=19001035]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_red_btn")
+theme_override_styles/normal = SubResource("StyleBoxTexture_v0qa2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l62gu")
 text = "VER ANUNCIO (+20 DIAMANTES)"
 
 [node name="PackDiamantesBtn" type="Button" parent="Margin/MainVBox/GridCards/CardDiamantes/VBox" unique_id=19001036]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_vrthb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_gosdw")
 text = "PACK TIENDA (+50 DIAMANTES)"
 
 [node name="FeedbackLabel" type="Label" parent="Margin/MainVBox" unique_id=19001037]
@@ -270,6 +367,8 @@ custom_minimum_size = Vector2(220, 48)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxTexture_t3ali")
+theme_override_styles/hover = SubResource("StyleBoxTexture_c0bs7")
 text = "VOLVER A INICIO"
 
 [node name="ContinuarAdBtn" type="Button" parent="Margin/MainVBox/FooterHBox" unique_id=19001040]
@@ -278,5 +377,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_red_btn")
+theme_override_styles/normal = SubResource("StyleBoxTexture_d5t3w")
+theme_override_styles/hover = SubResource("StyleBoxTexture_u08h4")
 text = "VER ANUNCIO PARA CONTINUAR  ->  PARTIDA NIVEL 1"

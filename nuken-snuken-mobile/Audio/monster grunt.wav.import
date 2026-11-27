@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dq4qae051dkcm"
-path="res://.godot/imported/monster grunt.wav-dfc2c2b9aadd7f1c0d9b204e3ab8a693.sample"
+path="res://.godot/imported/monster grunt.wav-864f60e8af3de39ff94af913d824e408.sample"
 
 [deps]
 
-source_file="res://Audio/monster grunt.wav"
-dest_files=["res://.godot/imported/monster grunt.wav-dfc2c2b9aadd7f1c0d9b204e3ab8a693.sample"]
+source_file="res://audio/monster grunt.wav"
+dest_files=["res://.godot/imported/monster grunt.wav-864f60e8af3de39ff94af913d824e408.sample"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://khg8svbplixu"
-path="res://.godot/imported/52065__jobro__barrelland4.wav-a076dcdb560b63920b7cb0c6a30f1660.sample"
+path="res://.godot/imported/52065__jobro__barrelland4.wav-767e5e5141da35986855e81567aa1aa0.sample"
 
 [deps]
 
-source_file="res://Audio/52065__jobro__barrelland4.wav"
-dest_files=["res://.godot/imported/52065__jobro__barrelland4.wav-a076dcdb560b63920b7cb0c6a30f1660.sample"]
+source_file="res://audio/52065__jobro__barrelland4.wav"
+dest_files=["res://.godot/imported/52065__jobro__barrelland4.wav-767e5e5141da35986855e81567aa1aa0.sample"]
 
 [params]
 
